@@ -5,7 +5,7 @@ OpenNebula offers a simple but feature-rich and flexible solution to build and m
 
 This project is under beta stage. Please use it carefully. 
 
-If installation goes success, you can login your machine via ssh console with our cloud.pem file.
+If installation goes success, you can login your machine via ssh console with our *cloud.pem* file.
 
 # Requirements
 
