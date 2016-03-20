@@ -65,12 +65,14 @@ echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCBYlX1NxLs7o++ySQRyuPY5dMdeAIoTh7XGE
 PWD='cut -c 10-50 one_auth'
 IP='hostname -i'
 
-echo "*************************************" >> /etc/motd
-echo "Opennebula 4.14 OS by James PS" >> /etc/motd
-echo "https://github.com/jamesarems" >> /etc/motd
-echo "          (c) 2016           " >> /etc/motd
-echo "*************************************" >> /etc/motd
-echo " Username : oneadmin" >> /etc/motd
-echo " Password : $PWD"  >> /etc/motd
-echo " Web UI : http://$IP:9869" >> /etc/motd
-echo "#######################################" >> /etc/motd
+echo "*****************************************************" >> /etc/motd
+echo "       Opennebula 4.14 OS by James PS             " >> /etc/motd
+echo "        https://github.com/jamesarems            " >> /etc/motd
+echo "                 (c) 2016           " >> /etc/motd
+echo "*****************************************************" >> /etc/motd
+echo "    Username : oneadmin   " >> /etc/motd
+echo "    Password : $PWD      "  >> /etc/motd
+echo "    Web UI : http://$IP:9869     " >> /etc/motd
+echo "    NOTE: If you are not getting network connection, then you have to configure network manually     " >> /etc/motd
+echo "    Details available on https://github.com/jamesarems/opennebula-distro" >> /etc/motd
+echo "######################################################" >> /etc/motd
