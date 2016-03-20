@@ -12,8 +12,8 @@ baseurl=http://downloads.opennebula.org/repo/4.14/CentOS/7/x86_64/
 enabled=1
 gpgcheck=0
 EOT
-yum install net-tools wget git opennebula-server openssh openssh-server opennebula-sunstone opennebula-node-kvm -y
-echo "\1\ny\n\n" |bash /usr/share/one/install_gems
+yum install net-tools gcc sqlite-devel mysql-devel openssl-devel curl-devel rubygem-rake libxml2-devel libxslt-devel patch expat-devel gcc-c++  wget git opennebula-server openssh openssh-server opennebula-sunstone opennebula-node-kvm -y
+echo "\1\ny\n\n" |/usr/share/one/install_gems
 
 sed -i 's/:host: 127.0.0.1/:host: 0.0.0.0/g' /etc/one/sunstone-server.conf
 sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
@@ -60,7 +60,8 @@ systemctl restart network.service
 
 ##Adding ssh public key
 echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCBYlX1NxLs7o++ySQRyuPY5dMdeAIoTh7XGE1Sp5yeaYz7AGegg8ov8jFDf7BtCiwkqboiuxPId38RFYCDLoSjbhzcVzoeMX87b/EcTJP+4DjQqe4lbfNmefK0t7qYPTvlTdK3gQEi9h5uw25RZmo2JqaJ+KoWJqU82es3bBKgEQ== imported-openssh-key" >> /root/.ssh/authorized_keys
-
+systemctl restart sshd
+cat /dev/null > /etc/motd
 
 PWD='cut -c 10-50 one_auth'
 IP='hostname -i'
