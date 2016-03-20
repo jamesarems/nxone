@@ -3,7 +3,7 @@
 #Install it with your own risk.
 #This script is in beta stage
 
-
+hostnamectl set-hostname nebula.cloud.local
 yum install epel-release -y
 cat << EOT > /etc/yum.repos.d/opennebula.repo
 [opennebula]

@@ -16,5 +16,5 @@ If installation goes success, you can login your machine via ssh console with ou
 
 # Limitation
 
-* Currently support enp30 interface only (You can change your network setting manually)
+* Currently support enp3s0 interface only (You can change your network setting manually)
 
