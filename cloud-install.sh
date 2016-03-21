@@ -42,9 +42,9 @@ systemctl start nfs.service
 ##Network Settings
 
 
-touch /etc/sysconfig/network-script/ifcfg-br0
-cp /etc/sysconfig/network-script/ifcfg-enp3s0 /etc/sysconfig/network-script/ifcfg-enp3s0.bak
-cat /dev/null > /etc/sysconfig/network-script/ifcfg-enp3s0
+touch /etc/sysconfig/network-scripts/ifcfg-br0
+cp /etc/sysconfig/network-scripts/ifcfg-enp3s0 /etc/sysconfig/network-scripts/ifcfg-enp3s0.bak
+cat /dev/null > /etc/sysconfig/network-scripts/ifcfg-enp3s0
 echo "
 DEVICE=enp3s0
 BOOTPROTO=none
@@ -69,7 +69,7 @@ echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCBYlX1NxLs7o++ySQRyuPY5dMdeAIoTh7XGE
 systemctl restart sshd
 cat /dev/null > /etc/motd
 
-PWD='cut -c 10-50 one_auth'
+PWD=`cut -c 10-50 /var/lib/one/.one/one_auth`
 IP='hostname -i'
 
 echo "*****************************************************" >> /etc/motd
