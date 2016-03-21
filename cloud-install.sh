@@ -83,3 +83,8 @@ echo "    Web UI : http://$IP:9869     " >> /etc/motd
 echo "    NOTE: If you are not getting network connection, then you have to configure network manually     " >> /etc/motd
 echo "    Details available on https://github.com/jamesarems/opennebula-distro" >> /etc/motd
 echo "######################################################" >> /etc/motd
+
+###
+#Final message
+clear
+echo "Please reboot your machine to complete this installation"
