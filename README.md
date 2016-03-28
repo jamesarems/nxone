@@ -34,11 +34,15 @@ Step 2 :- Configuring GlusterFS
 Step 3 :- Installing OpenNebula With KVM
 
   # ./cloud-install.sh setup
+
+# High Availability
+
+We can configure opennebula as highly available system. Please refer "Cluster" section.
   
 # Requirement
 
 * Virtualization supported machine
-* DHCP network
+* DHCP Network (Not necessary )
 * Internet
 * Atleast 4GB RAM and 100GB storage.
 
