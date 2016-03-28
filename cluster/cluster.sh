@@ -4,6 +4,8 @@ if [ "$1" == "setup" ]; then
  
 clear
 echo "Installing Opennebula HA components"
+sleep 3s
+echo "Both master and slave need to be set same root password"
 read -p "Please varify your settings before pressing ENTER . To Cancel press CTRL +C"
 clear
 echo "Installing....."
@@ -17,6 +19,11 @@ gem install --no-ri --no-rdoc rack-test --version=0.6.2
 gem install --no-ri --no-rdoc sinatra --version=1.4.5
 gem install --no-ri --no-rdoc sinatra-contrib --version=1.4.2
 gem install --no-ri --no-rdoc sinatra-sugar --version=0.5.1
+
+systemctl disable opennebula
+systemctl disable opennebula-sunstone
+systemctl disable opennebula-gate
+systemctl disable opennebula-flow
 
 systemctl start pcsd.service
 systemctl enable pcsd.service
@@ -36,6 +43,9 @@ read -p "master ip: " c
 read -p "slave ip: " d
 read -p "Cluster name to create: " e
 read -p "Heartbeat IP Address : " f
+read -p "Subnet mask for Heartbeat IP (eg: 24 ):" h
+read -p "Root password of your system:" g
+
 
 
 
@@ -47,19 +57,16 @@ pcs cluster start --all
 
 pcs property set no-quorum-policy=ignore
 
-pcs stonith list
+#pcs stonith list
 pcs stonith describe fence_ilo_ssh
 
-pcs stonith create fence_server1 fence_ilo_ssh pcmk_host_list=vps1 ipaddr=$c login="root" passwd="x" action="reboot" secure=yes delay=30 op monitor interval=20s
-pcs stonith create fence_server2 fence_ilo_ssh pcmk_host_list=vps2 ipaddr=$d login="root" passwd="x" action="reboot" secure=yes delay=15 op monitor interval=20s
+pcs stonith create fence_server1 fence_ilo_ssh pcmk_host_list=$a ipaddr=$c login="root" passwd="$g" action="reboot" secure=yes delay=30 op monitor interval=20s
+pcs stonith create fence_server2 fence_ilo_ssh pcmk_host_list=$b ipaddr=$d login="root" passwd="$g" action="reboot" secure=yes delay=15 op monitor interval=20s
 
-pcs resource create $e ocf:heartbeat:IPaddr2 ip=$f cidr_netmask=24 op monitor interval=20s
+pcs resource create $e ocf:heartbeat:IPaddr2 ip=$f cidr_netmask=$h op monitor interval=20s
 #pcs resource describe ocf:heartbeat:IPaddr2
 
-systemctl disable opennebula
-systemctl disable opennebula-sunstone
-systemctl disable opennebula-gate
-systemctl disable opennebula-flow
+
 
 pcs resource create opennebula systemd:opennebula
 pcs resource create opennebula-sunstone systemd:opennebula-sunstone
@@ -68,7 +75,7 @@ pcs resource create opennebula-flow systemd:opennebula-flow
 
 pcs constraint colocation add opennebula $e INFINITY
 pcs constraint colocation add opennebula-sunstone $e INFINITY
-pcs constraint colocation add opennebula-novnc $e INFINITY
+#pcs constraint colocation add opennebula-novnc $e INFINITY
 pcs constraint colocation add opennebula-gate $e INFINITY
 pcs constraint colocation add opennebula-flow $e INFINITY
 else
