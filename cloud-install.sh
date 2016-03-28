@@ -3,7 +3,15 @@
 #Install it with your own risk.
 #This script is in beta stage
 
-hostnamectl set-hostname nebula.cloud.local
+if [ "$1" == "setup" ]; then
+
+clear
+echo "Installing OpenNebula 4.14"
+sleep 5s
+read -p "Fully Qualified Domain Name to set:" f
+read -p "Your network interface name (eg: eth0 or enp3s0 ) :" g
+
+hostnamectl set-hostname $f
 yum install epel-release -y
 cat << EOT > /etc/yum.repos.d/opennebula.repo
 [opennebula]
@@ -43,8 +51,8 @@ systemctl start nfs.service
 
 
 touch /etc/sysconfig/network-scripts/ifcfg-br0
-cp /etc/sysconfig/network-scripts/ifcfg-enp3s0 /etc/sysconfig/network-scripts/ifcfg-enp3s0.bak
-cat /dev/null > /etc/sysconfig/network-scripts/ifcfg-enp3s0
+cp /etc/sysconfig/network-scripts/ifcfg-$g /etc/sysconfig/network-scripts/ifcfg-$g.bak
+cat /dev/null > /etc/sysconfig/network-scripts/ifcfg-$g
 echo "
 DEVICE=enp3s0
 BOOTPROTO=none
@@ -52,7 +60,7 @@ NM_CONTROLLED=no
 ONBOOT=yes
 TYPE=Ethernet
 BRIDGE=br0
-" >> /etc/sysconfig/network-script/ifcfg-enp3s0
+" >> /etc/sysconfig/network-script/ifcfg-$g
 
 echo "
 DEVICE=br0
@@ -88,3 +96,38 @@ echo "######################################################" >> /etc/motd
 #Final message
 clear
 echo "Please reboot your machine to complete this installation"
+
+elif [ "$1" == "gluster" ] ; then
+clear
+echo "Installing GlusterFS"
+sleep 4s
+wget -P /etc/yum.repos.d http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo
+yum install glusterfs-server -y
+service glusterd start
+clear
+echo "Before glusterconf , please install glusterfs in all your node"
+
+elif [ "$1" == "glusterconf" ]; then
+
+clear
+echo "Configuring GlusterFS for OpenNebula.."
+sleep 4s
+read -p "Gluster node 1 hostname:" a
+read -p "Gluster node 2 hostname:" b
+read -p "GlusterFS volume name:" c
+read -p "Mounted directory location to point Gluster volume:" d
+gluster peer probe $a
+gluster peer probe $b
+gluster volume create $c replica 2 $a:$d $b:$d force
+gluster volume start $c
+clear
+gluster volume info
+echo "Configuration Completed"
+
+else
+
+echo "Error pharsing command. Please check"
+
+fi
+
+
