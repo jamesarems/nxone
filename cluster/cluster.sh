@@ -78,6 +78,20 @@ pcs constraint colocation add opennebula-sunstone $e INFINITY
 #pcs constraint colocation add opennebula-novnc $e INFINITY
 pcs constraint colocation add opennebula-gate $e INFINITY
 pcs constraint colocation add opennebula-flow $e INFINITY
+
+elif [ "$1" == "sync"]
+clear
+echo "Syncing Remote servers"
+sleep 4s
+read -p "slave server hostname:" p
+read -p "slave server root password:" o
+
+sshpass -p $o ssh -o StrictHostKeyChecking=no -l root@$p 'rm -rf /var/lib/one/*'
+sshpass -p $o ssh -o StrictHostKeyChecking=no -l root@$p 'rm -rf /var/lib/one/.*'
+rsync -apvog --rsh="sshpass -p $o ssh -o StrictHostKeyChecking=no -l root" /var/lib/one/ $p:/var/lib/one/
+clear
+echo "Syncing completed"
+
 else
 echo "Invalid parameter"
 fi
