@@ -9,17 +9,20 @@ After the opennebula installation , we can think about clustering. Please instal
 
 #Usage
 
-On master server & slave server
+1. On master server ,
 
- # cd /opennebula-distro/cluster
 
- # ./cluster.sh sync
- 
- # ./cluster.sh setup               (Give informations what ever that asking from the installer )
+ cd /opennebula-distro/cluster
 
-After these steps on both machines, run below command on master server.
+ bash cluster.sh sync
 
- # ./cluster.sh master              (Give informations what ever that asking from the installer )
+2. On Both servers,
+
+ bash cluster.sh setup               (Give informations what ever that asking from the installer )
+
+3. After these steps on both machines, run below command on master server.
+
+ bash cluster.sh master              (Give informations what ever that asking from the installer )
 
 # Limitation
 
