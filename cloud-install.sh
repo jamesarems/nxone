@@ -54,7 +54,7 @@ touch /etc/sysconfig/network-scripts/ifcfg-br0
 cp /etc/sysconfig/network-scripts/ifcfg-$g /etc/sysconfig/network-scripts/ifcfg-$g.bak
 cat /dev/null > /etc/sysconfig/network-scripts/ifcfg-$g
 echo "
-DEVICE=enp3s0
+DEVICE=$g
 BOOTPROTO=none
 NM_CONTROLLED=no
 ONBOOT=yes
