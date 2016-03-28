@@ -31,17 +31,17 @@ If installation goes success, you can login your machine via ssh console with ou
   
   After this we all set to go with installer. 
   
-  # ./cloud-install.sh gluster
+   bash cloud-install.sh gluster
   
   Run this command on both servers.
   
 * Step 2  Configuring GlusterFS  
 
-  # ./cloud-install.sh glusterconf
+  bash cloud-install.sh glusterconf
   
 * Step 3 Installing OpenNebula With KVM
 
-  # ./cloud-install.sh setup
+  bash cloud-install.sh setup
 
 # High Availability
 
