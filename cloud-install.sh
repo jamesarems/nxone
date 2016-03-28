@@ -101,6 +101,7 @@ elif [ "$1" == "gluster" ] ; then
 clear
 echo "Installing GlusterFS"
 sleep 4s
+yum install wget -y
 wget -P /etc/yum.repos.d http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo
 yum install glusterfs-server -y
 service glusterd start
