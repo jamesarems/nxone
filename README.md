@@ -15,8 +15,8 @@ Step 1 :- SetUp GlusterFS for OpenNebula
   
   eg : mkdir /data
   
-       mount /dev/sdc1 /data
-       
+ mount /dev/sdc1 /data
+
   After that we need to create a directory inside the mount point . Glusterfs will not work with mount point itself.
   
   eg : mkdir -p /data/dr0
