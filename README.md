@@ -7,6 +7,7 @@ OpenNebula offers a simple but feature-rich and flexible solution to build and m
 * DHCP Network (Not necessary )
 * Internet
 * Atleast 4GB RAM and 100GB storage.
+* SELinux and Firewalld msut be in Disabled mode .
 
 # Usage
 
