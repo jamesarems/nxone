@@ -89,6 +89,16 @@ yum install sshpass -y >> /tmp/nebula.log
 
 sshpass -p $o ssh -o StrictHostKeyChecking=no  root@$p 'rm -rf /var/lib/one/*'
 sshpass -p $o ssh -o StrictHostKeyChecking=no  root@$p 'rm -rf /var/lib/one/.*'
+systemctl stop opennebula
+systemctl stop opennebula-sunstone
+systemctl stop opennebula-gate
+systemctl stop opennebula-flow
+
+sshpass -p $o ssh -o StrictHostKeyChecking=no  root@$p 'systemctl stop opennebula'
+sshpass -p $o ssh -o StrictHostKeyChecking=no  root@$p 'systemctl stop opennebula-sunstone'
+sshpass -p $o ssh -o StrictHostKeyChecking=no  root@$p 'systemctl stop opennebula-gate'
+sshpass -p $o ssh -o StrictHostKeyChecking=no  root@$p 'systemctl stop opennebula-flow'
+
 rsync -apvog --rsh="sshpass -p $o ssh -o StrictHostKeyChecking=no -l root" /var/lib/one/ $p:/var/lib/one/
 clear
 echo "Syncing completed"
