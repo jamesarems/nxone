@@ -85,10 +85,10 @@ echo "Syncing Remote servers"
 sleep 4s
 read -p "slave server hostname:" p
 read -p "slave server root password:" o
-yum install sshpass -y
+yum install sshpass -y >> /tmp/nebula.log
 
-sshpass -p $o ssh -o StrictHostKeyChecking=no -l root@$p 'rm -rf /var/lib/one/*'
-sshpass -p $o ssh -o StrictHostKeyChecking=no -l root@$p 'rm -rf /var/lib/one/.*'
+sshpass -p $o ssh -o StrictHostKeyChecking=no  root@$p 'rm -rf /var/lib/one/*'
+sshpass -p $o ssh -o StrictHostKeyChecking=no  root@$p 'rm -rf /var/lib/one/.*'
 rsync -apvog --rsh="sshpass -p $o ssh -o StrictHostKeyChecking=no -l root" /var/lib/one/ $p:/var/lib/one/
 clear
 echo "Syncing completed"
