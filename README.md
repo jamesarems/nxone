@@ -1,5 +1,12 @@
-## OpenNebula-Distribution
+## OpenNebula-Automation
 OpenNebula offers a simple but feature-rich and flexible solution to build and manage enterprise clouds and virtualized data centers. OpenNebula is designed to be simple. Simple to install, update and operate by the admins, and simple to use by end users. Being focused on simplicity, we integrate with existing technologies whenever possible. You’ll see that OpenNebula works with MySQL, Ceph, LVM, GlusterFS, Open vSwitch, LDAP... This allows us to deliver a light, flexible and robust cloud manager.
+
+# Requirement
+
+* Virtualization supported machine
+* DHCP Network (Not necessary )
+* Internet
+* Atleast 4GB RAM and 100GB storage.
 
 # Usage
 
@@ -7,7 +14,7 @@ This project is under beta stage. Please use it carefully.
 
 If installation goes success, you can login your machine via ssh console with our *cloud.pem* file.
 
-Step 1 :- SetUp GlusterFS for OpenNebula
+* Step 1 :- SetUp GlusterFS for OpenNebula
 
   Before setting up gluster , we need to add both hosts name in /etc/hosts file and also run *hostnamectl set-hostname "your FQDN"* .
   
@@ -27,11 +34,11 @@ Step 1 :- SetUp GlusterFS for OpenNebula
   
   Run this command on both servers.
   
-Step 2 :- Configuring GlusterFS  
+* Step 2 :- Configuring GlusterFS  
 
   # ./cloud-install.sh glusterconf
   
-Step 3 :- Installing OpenNebula With KVM
+* Step 3 :- Installing OpenNebula With KVM
 
   # ./cloud-install.sh setup
 
@@ -39,12 +46,7 @@ Step 3 :- Installing OpenNebula With KVM
 
 We can configure opennebula as highly available system. Please refer "Cluster" section.
   
-# Requirement
 
-* Virtualization supported machine
-* DHCP Network (Not necessary )
-* Internet
-* Atleast 4GB RAM and 100GB storage.
 
 # Limitation
 
