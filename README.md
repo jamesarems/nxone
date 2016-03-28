@@ -15,7 +15,7 @@ This project is under beta stage. Please use it carefully.
 
 If installation goes success, you can login your machine via ssh console with our *cloud.pem* file.
 
-* Step 1 :- SetUp GlusterFS for OpenNebula
+* Step 1  SetUp GlusterFS for OpenNebula
 
   Before setting up gluster , we need to add both hosts name in /etc/hosts file and also run *hostnamectl set-hostname "your FQDN"* .
   
@@ -35,11 +35,11 @@ If installation goes success, you can login your machine via ssh console with ou
   
   Run this command on both servers.
   
-* Step 2 :- Configuring GlusterFS  
+* Step 2  Configuring GlusterFS  
 
   # ./cloud-install.sh glusterconf
   
-* Step 3 :- Installing OpenNebula With KVM
+* Step 3 Installing OpenNebula With KVM
 
   # ./cloud-install.sh setup
 
