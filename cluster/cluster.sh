@@ -79,7 +79,7 @@ pcs constraint colocation add opennebula-sunstone $e INFINITY
 pcs constraint colocation add opennebula-gate $e INFINITY
 pcs constraint colocation add opennebula-flow $e INFINITY
 
-elif [ "$1" == "sync"] ; then
+elif [ "$1" == "sync" ] ; then
 clear
 echo "Syncing Remote servers"
 sleep 4s
