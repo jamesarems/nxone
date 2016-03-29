@@ -58,10 +58,11 @@ pcs cluster start --all
 pcs property set no-quorum-policy=ignore
 
 #pcs stonith list
-pcs stonith describe fence_ilo_ssh
+pcs property set stonith-enabled=false
+#pcs stonith describe fence_ilo_ssh
 
-pcs stonith create fence_server1 fence_ilo_ssh pcmk_host_list=$a ipaddr=$c login="root" passwd="$g" action="reboot" secure=yes delay=30 op monitor interval=20s
-pcs stonith create fence_server2 fence_ilo_ssh pcmk_host_list=$b ipaddr=$d login="root" passwd="$g" action="reboot" secure=yes delay=15 op monitor interval=20s
+#pcs stonith create fence_server1 fence_ilo_ssh pcmk_host_list=$a ipaddr=$c login="root" passwd="$g" action="reboot" secure=yes delay=30 op monitor interval=20s
+#pcs stonith create fence_server2 fence_ilo_ssh pcmk_host_list=$b ipaddr=$d login="root" passwd="$g" action="reboot" secure=yes delay=15 op monitor interval=20s
 
 pcs resource create $e ocf:heartbeat:IPaddr2 ip=$f cidr_netmask=$h op monitor interval=20s
 #pcs resource describe ocf:heartbeat:IPaddr2
