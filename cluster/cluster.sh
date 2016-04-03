@@ -8,9 +8,12 @@ sleep 3s
 echo "Both master and slave need to be set same root password"
 read -p "Please varify your settings before pressing ENTER . To Cancel press CTRL +C"
 clear
+##Installation Starts
 echo "Installing....."
 sleep 3s
 yum install pcs fence-agents-all -y
+clear
+echo "Password for hacluster service. This should be same for both master and slave."
 passwd hacluster
 gem uninstall rack sinatra
 gem install --no-ri --no-rdoc rack --version=1.5.2
@@ -25,10 +28,15 @@ systemctl disable opennebula-sunstone
 systemctl disable opennebula-gate
 systemctl disable opennebula-flow
 
+rm -rf /usr/bin/cloud
+find / -iname cluster.sh -exec cp -r {} /usr/bin/cloud \;
+chmod +x /usr/bin/cloud
 systemctl start pcsd.service
 systemctl enable pcsd.service
 systemctl enable corosync.service
 systemctl enable pacemaker.service
+clear
+echo 'We now just installed cluster services . Our cloud service command will available with "cloud" from your command line'
 
 #This commands is only for master server
 elif [ "$1" == "master" ] ; then
@@ -48,7 +56,8 @@ read -p "Root password of your system:" g
 
 
 
-
+clear
+echo 'Username is "hacluster" and password is the one you given on the first setup'
 pcs cluster auth $a $b
 
 pcs cluster setup --name opennebula $a $b
