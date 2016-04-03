@@ -24,6 +24,14 @@ After the opennebula installation , we can think about clustering. Please instal
 
  bash cluster.sh master              (Give informations what ever that asking from the installer )
 
+#Disaster recovery
+
+Consider this scenario : Because of some reason or power failer master server is down . From our cluster setup slave server will run nebula services and heartbeat IP as well. Ok thats great. But when our master server is ready to live we need to re attach master to the cluster. For that we need to run below commad on the failed server.
+
+ /usr/bin/cloud attach
+ 
+ This command will attach your failed server to the existing cluster.
+
 # Limitation
 
  Nothing yet...lol
