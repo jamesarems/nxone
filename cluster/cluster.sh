@@ -99,6 +99,7 @@ yum install sshpass -y >> /tmp/nebula.log
 
 sshpass -p $o ssh -o StrictHostKeyChecking=no  root@$p 'rm -rf /var/lib/one/*'
 sshpass -p $o ssh -o StrictHostKeyChecking=no  root@$p 'rm -rf /var/lib/one/.*'
+sshpass -p $o scp -o StrictHostKeyChecking=no -r /etc/motd root@$p:/etc/motd 
 systemctl stop opennebula
 systemctl stop opennebula-sunstone
 systemctl stop opennebula-gate
