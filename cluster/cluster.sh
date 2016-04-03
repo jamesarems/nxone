@@ -113,6 +113,16 @@ rsync -apvog --rsh="sshpass -p $o ssh -o StrictHostKeyChecking=no -l root" /var/
 clear
 echo "Syncing completed"
 
+elif [ "$1" == "attach" ]
+clear
+echo " Attaching crashed machine to the running cluster"
+systemctl start pcsd.service
+pcs cluster start --all
+clear
+echo "Attaching please wait......."
+sleep 6s
+pcs status
+
 else
 echo "Invalid parameter"
 fi
