@@ -97,6 +97,31 @@ echo "######################################################" >> /etc/motd
 clear
 echo "Please reboot your machine to complete this installation"
 
+elif [ "$1" == "ovs" ] ; then
+clear
+echo "Checking Repository...."
+sleep 3s
+yum install epel-release -y >> /var/log/ovsinstall.log
+yum -y install wget openssl-devel gcc make python-devel openssl-devel kernel-devel kernel-debug-devel autoconf automake rpm-build redhat-rpm-config libtool
+adduser ovs
+clear
+echo "Configuring OpenVswitch.."
+sleep 3s
+runuser -l ovs -c 'mkdir -p ~/rpmbuild/SOURCES'
+runuser -l ovs -c 'wget http://openvswitch.org/releases/openvswitch-2.4.0.tar.gz -P /home/ovs/'
+runuser -l ovs -c 'cp /home/ovs/openvswitch-2.4.0.tar.gz ~/rpmbuild/SOURCES/'
+runuser -l ovs -c 'tar xfz /home/ovs/openvswitch-2.4.0.tar.gz'
+runuser -l ovs -c `sed 's/openvswitch-kmod, //g' /home/ovs/openvswitch-2.4.0/rhel/openvswitch.spec > /home/ovs/openvswitch-2.4.0/rhel/openvswitch_no_kmod.spec`
+runuser -l ovs -c 'rpmbuild -bb --nocheck /home/ovs/openvswitch-2.4.0/rhel/openvswitch_no_kmod.spec'
+
+yum localinstall /home/ovs/rpmbuild/RPMS/x86_64/openvswitch-2.4.0-1.x86_64.rpm -y
+clear
+echo "OpenVswitch Version"
+ovs-vsctl -V
+/etc/init.d/openvswitch start
+chkconfig openvswitch on
+echo "Installation completed"
+
 elif [ "$1" == "gluster" ] ; then
 clear
 echo "Installing GlusterFS"
