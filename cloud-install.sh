@@ -122,6 +122,58 @@ ovs-vsctl -V
 chkconfig openvswitch on
 echo "Installation completed"
 
+elif [ "$1" == "ovs-conf" ] ; then
+clear
+echo "Configuring OVS network"
+clear
+read -p "Your network adapter name (eg: eth0 , ens0p1) :" a
+read -p "Main IP Address:" b
+read -p "Subnet Prefix (eg : 24 for 255.255.255.0 ) :" c
+read -p "Your Router Gateway:" d
+read -p "DNS server to connect (eg : 8.8.8.8) :" e
+
+rm -rf /etc/sysconfig/network-scripts/ifcfg-br0
+touch /etc/sysconfig/network-scripts/ifcfg-br0
+cp /etc/sysconfig/network-scripts/ifcfg-$a /etc/sysconfig/network-scripts/ifcfg-$g.bak
+cat /dev/null > /etc/sysconfig/network-scripts/ifcfg-$a
+echo "
+DEVICE=$a
+BOOTPROTO=none
+NM_CONTROLLED=no
+ONBOOT=yes
+TYPE=OVSPort
+DEVICETYPE=ovs
+TYPE=Ethernet
+OVS_BRIDGE=br0
+" >> /etc/sysconfig/network-script/ifcfg-$a
+
+echo "
+DEVICE=br0
+TYPE=Bridge
+ONBOOT=yes
+BOOTPROTO=none
+IPADDR=$b
+PREFIX=$c
+GATEWAY=$d
+DNS1=$e
+TYPE=OVSBridge
+DEVICETYPE=ovs
+NM_CONTROLLED=no
+" >> /etc/sysconfig/network-script/ifcfg-br0
+clear
+echo "If your connection get droped , please type below comments in the server locally"
+echo "********************************"
+echo "ovs-vsctl add-br br0"
+echo "ovs-vsctl add-port br0 $a "
+echo "********************************"
+echo "NOTE: if you got successfull connection, then no need to type above command"
+
+ovs-vsctl add-br br0
+ovs-vsctl add-port br0 $a
+systemctl restart network
+ovs-vsctl show
+clear
+
 elif [ "$1" == "gluster" ] ; then
 clear
 echo "Installing GlusterFS"
