@@ -4,6 +4,7 @@ OpenNebula offers a simple but feature-rich and flexible solution to build and m
 # Requirement
 
 * Virtualization supported machine
+* 2 Ethernet cards. (1 for local access and 1 for public )
 * DHCP Network (Not necessary )
 * Internet
 * Atleast 4GB RAM and 100GB storage.
@@ -46,10 +47,21 @@ If installation goes success, you can login your machine via ssh console with ou
 # High Availability
 
 We can configure opennebula as highly available system. Please refer "Cluster" section.
-  
+
+# Networking
+
+Now OpenVswitch support added. You can easly install and configer OpenVswitch on your opennebula server. After Compleating *Step 3* just enter below commands. If you are not intrested with openVswitch , then continue with Cluster setup.
+
+ bash cloud-install.sh ovh
+ 
+ Answer all the questions that installer asks. After that run,
+ 
+ bash cloud-install.sh ovh-conf
+ 
+ And follow the instructions.
 
 
 # Limitation
 
-* Currently support enp3s0 interface only (You can change your network setting manually)
+* Please submit in bug reports. Currently no limitations.
 
