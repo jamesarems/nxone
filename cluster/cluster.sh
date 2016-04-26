@@ -114,7 +114,7 @@ rsync -apvog --rsh="sshpass -p $o ssh -o StrictHostKeyChecking=no -l root" /var/
 clear
 echo "Syncing completed"
 
-elif [ "$1" == "add-host" ] ;
+elif [ "$1" == "add-host" ] ; then
 clear
 read -p "KVM Host IP : " a
 echo "Adding KVM host to OPenNebula"
@@ -123,7 +123,7 @@ sleep 3s
 runuser -l oneadmin -c 'onehost create $a -i kvm -v kvm -n ovswitch'
 runuser -l oneadmin -c 'onehost list'
 
-elif [ "$1" == "attach" ]
+elif [ "$1" == "attach" ] ; then
 clear
 echo " Attaching crashed machine to the running cluster"
 systemctl start pcsd.service
