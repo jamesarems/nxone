@@ -52,7 +52,10 @@ systemctl start nfs.service
 
 touch /etc/sysconfig/network-scripts/ifcfg-br0
 cp /etc/sysconfig/network-scripts/ifcfg-$g /etc/sysconfig/network-scripts/ifcfg-$g.bak
-cat /dev/null > /etc/sysconfig/network-scripts/ifcfg-$g
+#cat /dev/null > /etc/sysconfig/network-scripts/ifcfg-$g
+clear
+echo "Copy below content to ifcfg-$g"
+
 echo "
 DEVICE=$g
 BOOTPROTO=none
@@ -60,7 +63,9 @@ NM_CONTROLLED=no
 ONBOOT=yes
 TYPE=Ethernet
 BRIDGE=br0
-" >> /etc/sysconfig/network-script/ifcfg-$g
+" 
+
+echo "Copy below content to /etc/sysconfig/network-scripts/ifcfg-br0"
 
 echo "
 DEVICE=br0
@@ -68,7 +73,8 @@ TYPE=Bridge
 ONBOOT=yes
 BOOTPROTO=dhcp
 NM_CONTROLLED=no
-" >> /etc/sysconfig/network-script/ifcfg-br0
+" 
+read -p "Please hit ENTER after finish copy paste. You must need to copy and paste content to the given location."
 
 systemctl restart network.service
 
@@ -135,7 +141,8 @@ read -p "DNS server to connect (eg : 8.8.8.8) :" e
 rm -rf /etc/sysconfig/network-scripts/ifcfg-br0
 touch /etc/sysconfig/network-scripts/ifcfg-br0
 cp /etc/sysconfig/network-scripts/ifcfg-$a /etc/sysconfig/network-scripts/ifcfg-$g.bak
-cat /dev/null > /etc/sysconfig/network-scripts/ifcfg-$a
+clear
+echo "Copy this content to your ifcfg-$a"
 echo "
 DEVICE=$a
 BOOTPROTO=none
@@ -145,7 +152,9 @@ TYPE=OVSPort
 DEVICETYPE=ovs
 TYPE=Ethernet
 OVS_BRIDGE=br0
-" >> /etc/sysconfig/network-script/ifcfg-$a
+"
+
+echo "Copy this to /etc/sysconfig/network-scripts/ifcfg-br0"
 
 echo "
 DEVICE=br0
@@ -159,20 +168,21 @@ DNS1=$e
 TYPE=OVSBridge
 DEVICETYPE=ovs
 NM_CONTROLLED=no
-" >> /etc/sysconfig/network-script/ifcfg-br0
-clear
-echo "If your connection get droped , please type below comments in the server locally"
+"
+
+echo "After copy and paste, type below commands"
 echo "********************************"
 echo "ovs-vsctl add-br br0"
 echo "ovs-vsctl add-port br0 $a "
+echo "systemctl restart network"
 echo "********************************"
-echo "NOTE: if you got successfull connection, then no need to type above command"
+echo "NOTE: if your connection were dropped , need to get direct connection from server"
 
-ovs-vsctl add-br br0
-ovs-vsctl add-port br0 $a
-systemctl restart network
-ovs-vsctl show
-clear
+#ovs-vsctl add-br br0
+#ovs-vsctl add-port br0 $a
+#systemctl restart network
+#ovs-vsctl show
+#clear
 
 elif [ "$1" == "gluster" ] ; then
 clear
