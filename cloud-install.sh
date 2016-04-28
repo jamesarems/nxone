@@ -132,6 +132,8 @@ echo "Installation completed"
 #Experimental
 elif [ "$1" == "lizardfs" ]; then
 clear
+read -p "Lizardfs master IP :" a
+echo " $a  mfsmaster " >> /etc/hosts
 echo "Installing LizardFS packages"
 sleep 3s
 curl http://packages.lizardfs.com/lizardfs.key > /etc/pki/rpm-gpg/RPM-GPG-KEY-LizardFS
@@ -139,10 +141,63 @@ curl http://packages.lizardfs.com/yum/el7/lizardfs.repo > /etc/yum.repos.d/lizar
 yum update -y
 yum install lizardfs-master lizardfs-chunkserver lizardfs-cgiserv lizardfs-metalogger lizardfs-client -y
 clear
-echo "LIzardFS packages installed"
+echo "LIzardFS packages installed. Run this step on every lizardfs nodes"
 
+elif [ "$1" == "lizardfs-master" ]; then
+clear
+echo "Master server configuration"
+cp /etc/mfs/mfsmaster.cfg.dist /etc/mfs/mfsmaster.cfg
+cp /etc/mfs/mfsexports.cfg.dist /etc/mfs/mfsexports.cfg
+cp /etc/mfs/mfsgoals.cfg.dist /etc/mfs/mfsgoals.cfg
+cp /etc/mfs/mfstopology.cfg.dist /etc/mfs/mfstopology.cfg
+cp /var/lib/mfs/metadata.mfs.empty /var/lib/mfs/metadata.mfs
+sed -i 's/# PERSONALITY = master/PERSONALITY = master/g' /etc/mfs/mfsmaster.cfg
+systemctl enable lizardfs-master
+systemctl start lizardfs-master
+clear
+echo "Lizardfs master is configured."
 
+elif [ "$1" == "lizardfs-shadow" ]; then
+clear
+echo "Shadow server configuration"
+cp /etc/mfs/mfsmaster.cfg.dist /etc/mfs/mfsmaster.cfg
+cp /etc/mfs/mfsexports.cfg.dist /etc/mfs/mfsexports.cfg
+#cp /etc/mfs/mfsgoals.cfg.dist /etc/mfs/mfsgoals.cfg
+#cp /etc/mfs/mfstopology.cfg.dist /etc/mfs/mfstopology.cfg
+#cp /var/lib/mfs/metadata.mfs.empty /var/lib/mfs/metadata.mfs
+sed -i 's/# PERSONALITY = master /PERSONALITY = shadow/g' /etc/mfs/mfsmaster.cfg
+systemctl enable lizardfs-master
+systemctl start lizardfs-master
+clear
+echo "Lizardfs shadow is configured."
 
+elif [ "$1" == "lizardfs-chunk" ]; then
+HOST=`hostname -i`
+clear
+echo "LizardFS chunk configuration"
+echo "**************************************************************"
+echo "NOTE : you have to mount HDD to your local directory. Atleast 2 mount points needed.
+echo " Eg : /mnt/chunk1  and /mnt/chunk2"
+echo "**************************************************************"
+read -p "If you mounted disk already, then press ENTER otherwise CTRL+C to exit"
+clear
+read -p "Mounted location 1 :" a
+echo "Primary location is  $a"
+read -p "Mounted location 2 :" b
+echo "Secondary location is $b"
+echo "$a" >> /etc/mfs/mfshdd.cfg
+echo "$b" >> /etc/mfs/mfshdd.cfg
+cp /etc/mfs/mfsmetalogger.cfg.dist /etc/mfs/mfsmetalogger.cfg
+chown -R mfs:mfs $a
+chown -R mfs:mfs $b
+mfschunkserver start
+mfsmetalogger start
+mfscgiserv start
+clear
+echo "Chunk server started"
+echo "*******************************************************************************"
+echo "You can now acces web at http://$HOST:9425/mfs.cgi?masterhost=mfsmaster       "
+echo "*******************************************************************************"
 
 elif [ "$1" == "ovs-conf" ] ; then
 clear
