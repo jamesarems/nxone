@@ -148,6 +148,7 @@ clear
 echo "Master server configuration"
 cp /etc/mfs/mfsmaster.cfg.dist /etc/mfs/mfsmaster.cfg
 cp /etc/mfs/mfsexports.cfg.dist /etc/mfs/mfsexports.cfg
+sed -i 's/maproot=0/maproot=9869/g' /etc/mfs/mfsexports.cfg
 cp /etc/mfs/mfsgoals.cfg.dist /etc/mfs/mfsgoals.cfg
 cp /etc/mfs/mfstopology.cfg.dist /etc/mfs/mfstopology.cfg
 cp /var/lib/mfs/metadata.mfs.empty /var/lib/mfs/metadata.mfs
