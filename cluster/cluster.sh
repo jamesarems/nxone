@@ -123,7 +123,7 @@ sleep 3s
 runuser -l oneadmin -c 'onehost create $a -i kvm -v kvm -n ovswitch'
 runuser -l oneadmin -c 'onehost list'
 
-elif [ "$1" == "attach" ] ; then
+elif [ "$1" == "attach-pcs" ] ; then
 clear
 echo " Attaching crashed machine to the running cluster"
 systemctl start pcsd.service
@@ -132,6 +132,33 @@ clear
 echo "Attaching please wait......."
 sleep 6s
 pcs status
+
+elif [ "$1" == "attach-lizard" ] ; then
+clear
+echo "Re attaching lizardfs services and volumes"
+systemctl restart lizardfs-master
+mfsmaster reload
+mfschunkserver restart
+mfsmetalogger start
+mfscgiserv start
+echo "All services are attached"
+
+elif [ "$1" == "mount-lizard" ] ; then
+clear
+echo "Mounting opennebula directory"
+umount /var/lib/one
+mfsmount /var/lib/one
+chown oneadmin:oneadmin /var/lib/one
+df -h
+
+elif [ "$1" == "mount-gluster" ] ; then
+clear
+echo "Mounting opennebula directory"
+read -p "Gluster store node (Eg : node1.example.com:/dr1 ) : " a
+umount /var/lib/one
+mount -t glusterfs $a /var/lib/one
+chown oneadmin:oneadmin /var/lib/one
+df -h
 
 else
 echo "Invalid parameter"
