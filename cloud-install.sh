@@ -177,7 +177,7 @@ HOST=`hostname -i`
 clear
 echo "LizardFS chunk configuration"
 echo "**************************************************************"
-echo "NOTE : you have to mount HDD to your local directory. Atleast 2 mount points needed.
+echo "NOTE : you have to mount HDD to your local directory. Atleast 2 mount points needed."
 echo " Eg : /mnt/chunk1  and /mnt/chunk2"
 echo "**************************************************************"
 read -p "If you mounted disk already, then press ENTER otherwise CTRL+C to exit"
