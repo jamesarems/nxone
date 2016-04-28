@@ -128,6 +128,22 @@ ovs-vsctl -V
 chkconfig openvswitch on
 echo "Installation completed"
 
+##LizardsFS installation
+#Experimental
+elif [ "$1" == "lizardfs" ]; then
+clear
+echo "Installing LizardFS packages"
+sleep 3s
+curl http://packages.lizardfs.com/lizardfs.key > /etc/pki/rpm-gpg/RPM-GPG-KEY-LizardFS
+curl http://packages.lizardfs.com/yum/el7/lizardfs.repo > /etc/yum.repos.d/lizardfs.repo 
+yum update -y
+yum install lizardfs-master lizardfs-chunkserver lizardfs-cgiserv lizardfs-metalogger lizardfs-client -y
+clear
+echo "LIzardFS packages installed"
+
+
+
+
 elif [ "$1" == "ovs-conf" ] ; then
 clear
 echo "Configuring OVS network"
