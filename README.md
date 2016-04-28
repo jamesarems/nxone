@@ -44,6 +44,29 @@ If installation goes success, you can login your machine via ssh console with ou
 
   bash cloud-install.sh setup
 
+# LizardFS Support
+
+We can install Lizardfs rather than using glusterFS . If you are intrested about LIzardfs then please dont install gluster .
+
+First install LIzard and continue Step 3.
+
+* Step 1a  Install LizardFS master .
+
+  bash cloud-install.sh lizardfs-master
+
+* Step 2a  Configuring shadow server
+
+  Execute this commands in every nodes except master.
+
+  bash cloud-install.sh lizardfs-shadow
+
+* Step 2b  Configuring Chunk nodes
+
+  NOTE : You have to run this command on every nodes. 
+
+  bash cloud-install.sh lizardfs-chunk
+
+
 # High Availability
 
 We can configure opennebula as highly available system. Please refer "Cluster" section.
