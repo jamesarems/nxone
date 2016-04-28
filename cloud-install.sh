@@ -242,18 +242,20 @@ DEVICETYPE=ovs
 NM_CONTROLLED=no
 "
 
-echo "After copy and paste, type below commands"
-echo "********************************"
-echo "ovs-vsctl add-br br0"
-echo "ovs-vsctl add-port br0 $a "
-echo "systemctl restart network"
-echo "********************************"
-echo "NOTE: if your connection were dropped , need to get direct connection from server"
+read -p "WARNING : After copy and paste , please press ENTER. If you are not placing the lines on correct location , you will loose your netwok connection."
 
-#ovs-vsctl add-br br0
-#ovs-vsctl add-port br0 $a
-#systemctl restart network
-#ovs-vsctl show
+#echo "After copy and paste, type below commands"
+#echo "********************************"
+#echo "ovs-vsctl add-br br0"
+#echo "ovs-vsctl add-port br0 $a "
+#echo "systemctl restart network"
+#echo "********************************"
+#echo "NOTE: if your connection were dropped , need to get direct connection from server"
+
+ovs-vsctl add-br br0
+ovs-vsctl add-port br0 $a
+systemctl restart network
+ovs-vsctl show
 #clear
 
 elif [ "$1" == "gluster" ] ; then
