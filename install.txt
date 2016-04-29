@@ -1,0 +1,21 @@
+##Installation steps using LizardFS
+1 ) Install LizardFS
+   Install it on all nodes , as dicribed in README.md file .
+2 ) Install OpenNebula
+   Before Installation :
+   Create /var/lib/one directory first on Master server.
+   mount LizardFS to /var/lib/one
+   
+   Install OpenNebula .
+   
+   Then , After master server installation. Install it on other nodes but dont follow above steps .
+   After nodes installation . 
+   # rm -rf /var/lib/one/*
+   # rm -rf /var/lib/one/.*
+   And then mount using Lizardfs to the same location .
+  
+   # mfsmount /var/lib/one 
+   
+   
+3 ) Install & Configure OVS
+4 ) Install Cluster packages
