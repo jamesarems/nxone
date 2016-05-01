@@ -48,7 +48,7 @@ If installation goes success, you can login your machine via ssh console with ou
 
 We can install Lizardfs rather than using glusterFS . If you are intrested about LIzardfs then please dont install gluster .
 
-First install LIzard and continue Step 3.
+First install Step 3 from above and continue here.
 
 * Step 1a  Install LizardFS master .
 
