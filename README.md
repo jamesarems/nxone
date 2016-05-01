@@ -77,11 +77,11 @@ We can configure opennebula as highly available system. Please refer "Cluster" s
 
 Now OpenVswitch support added. You can easly install and configer OpenVswitch on your opennebula server. After Compleating *Step 3* just enter below commands. If you are not intrested with openVswitch , then continue with Cluster setup.
 
- cloud-install.sh ovs
+ cloud-install ovs
  
  Answer all the questions that installer asks. After that run,
  
- cloud-install.sh ovs-conf
+ cloud-install ovs-conf
  
  And follow the instructions.
 
