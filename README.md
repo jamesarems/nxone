@@ -12,9 +12,11 @@ OpenNebula offers a simple but feature-rich and flexible solution to build and m
 
 # Usage
 
-This project is under beta stage. Please use it carefully. 
 
-If installation goes success, you can login your machine via ssh console with our *cloud.pem* file.
+First run "installer.sh"
+
+ bash installer.sh
+
 
 * Step 1  SetUp GlusterFS for OpenNebula
 
@@ -32,17 +34,17 @@ If installation goes success, you can login your machine via ssh console with ou
   
   After this we all set to go with installer. 
   
-   bash cloud-install.sh gluster
+   cloud-install gluster
   
   Run this command on both servers.
   
 * Step 2  Configuring GlusterFS  
 
-  bash cloud-install.sh glusterconf
+  cloud-install glusterconf
   
 * Step 3 Installing OpenNebula With KVM
 
-  bash cloud-install.sh setup
+  cloud-install setup
 
 # LizardFS Support
 
@@ -52,19 +54,19 @@ First install Step 3 from above and continue here.
 
 * Step 1a  Install LizardFS master .
 
-  bash cloud-install.sh lizardfs-master
+  cloud-install lizardfs-master
 
 * Step 2a  Configuring shadow server
 
   Execute this commands in every nodes except master.
 
-  bash cloud-install.sh lizardfs-shadow
+  cloud-install lizardfs-shadow
 
 * Step 2b  Configuring Chunk nodes
 
   NOTE : You have to run this command on every nodes. 
 
-  bash cloud-install.sh lizardfs-chunk
+  cloud-install lizardfs-chunk
 
 
 # High Availability
@@ -75,11 +77,11 @@ We can configure opennebula as highly available system. Please refer "Cluster" s
 
 Now OpenVswitch support added. You can easly install and configer OpenVswitch on your opennebula server. After Compleating *Step 3* just enter below commands. If you are not intrested with openVswitch , then continue with Cluster setup.
 
- bash cloud-install.sh ovs
+ cloud-install.sh ovs
  
  Answer all the questions that installer asks. After that run,
  
- bash cloud-install.sh ovs-conf
+ cloud-install.sh ovs-conf
  
  And follow the instructions.
 

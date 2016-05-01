@@ -14,17 +14,15 @@ After the opennebula installation , we can think about clustering. Please instal
 1. On master server ,
 
 
- cd /opennebula-distro/cluster
-
- bash cluster.sh sync
+ cloud sync
 
 2. On Both servers,
 
- bash cluster.sh setup               (Give informations what ever that asking from the installer )
+ cloud setup               (Give informations what ever that asking from the installer )
 
 3. After these steps on both machines, run below command on master server.
 
- bash cluster.sh master              (Give informations what ever that asking from the installer )
+ cloud master              (Give informations what ever that asking from the installer )
 
 #Disaster recovery
 
