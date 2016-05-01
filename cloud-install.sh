@@ -290,9 +290,20 @@ clear
 gluster volume info
 echo "Configuration Completed"
 
+elif [ "$1" == "help" ] ; then
+echo "$(tput setaf 1)gluster$(tput sgr0)  :  Install GlusterFS Packages"
+echo "$(tput setaf 1)glusterconf$(tput sgr0)  :  Configure GlusterFS"
+echo "$(tput setaf 1)lizard$(tput sgr0)  :  Install LizardFS Packages"
+echo "$(tput setaf 1)lizard-master$(tput sgr0)  :  Configure LizardsFS master"
+echo "$(tput setaf 1)lizard-shadow$(tput sgr0)  :  Configure LizardFS shadow server"
+echo "$(tput setaf 1)lizard-chunk$(tput sgr0)  :  Configure LizardFS chunk server"
+echo "$(tput setaf 1)ovs$(tput sgr0)  :  Install OpenVswitch packages"
+echo "$(tput setaf 1)ovs-conf$(tput sgr0)  :  Configure OpenVswitch"
+
 else
 
-echo "Error pharsing command. Please check"
+echo "Error pharsing command. Please check . Type $(tput setaf 3)help$(tput sgr0) for more"
+
 
 fi
 
