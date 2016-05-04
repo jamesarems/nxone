@@ -114,10 +114,54 @@ rsync -apvog --rsh="sshpass -p $o ssh -o StrictHostKeyChecking=no -l root" /var/
 clear
 echo "Syncing completed"
 
+elif [ "$1" == "clone" ] ; then
+clear
+echo "**********************************"
+echo "Cloning entire OpenNebula Platform"
+echo "**********************************"
+sleep 2s
+read -p "First mount shared storage / Disk to a directory. If you forget to mount press CTRL+C . Otherwise press ENTER"
+clear
+read -p "Mounted location (eg: /mnt/disk ) :" a
+
+yum install rsync -y
+mkdir $a/nebula-cone
+cp -rvf /var/lib/one $a/nebula-clone/one-var
+cp -rvf /usr/lib/one $a/nebula-clone/one-usr
+cp -rvf /etc/one $a/nebula-clone/one-etc
+clear
+echo "Cloning finished . Clone image saved under  $(tput setaf 2)$a/nebula-clone$(tput sgr0) For restoration use $(tput setaf 3)restore$(tput sgr0) option "
+
+elif [ "$1" == "restore" ] ; then
+clear
+echo "**********************************"
+echo "Restoring entire OpenNebula Platform"
+echo "**********************************"
+sleep 2s
+read -p "First mount Disk/Shared storage containing cloned files . If you forget to mount press CTRL+C . Otherwise press ENTER"
+clear
+read -p "Currect location to the clone image path (eg: /mnt/disk/nebula-clone ) :" a
+
+yum install rsync -y
+service opennebula stop
+service opennebula-sunstone stop
+service opennebula-flow stop
+rm -rf /var/lib/one/*
+rm -rf /var/lib/one/.*
+rm -rf /usr/lib/one/*
+rm -rf /etc/one/*
+rsync -apvog $a/one-var/ /var/lib/one/
+cp -rvf $a/one-usr/ /usr/lib/one/
+cp -rvf $a/one-etc/ /etc/one/
+chown oneadmin:oneadmin /var/lib/one
+
+clear
+echo "Restoration finished ."
+
 elif [ "$1" == "add-host" ] ; then
 clear
-read -p "KVM Host IP : " a
-echo "Adding KVM host to OPenNebula"
+read -p "KVM Host IP/FQDN : " a
+echo "Adding KVM host to OpenNebula"
 sleep 3s
 
 runuser -l oneadmin -c 'onehost create $a -i kvm -v kvm -n ovswitch'
