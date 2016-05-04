@@ -140,9 +140,9 @@ read -p "Mounted location (eg: /mnt/disk ) :" a
 yum install rsync -y
 mkdir $a/nebula-clone
 mkdir $a/nebula-clone/one-{var,usr,etc}
-rsync -apvog /var/lib/one/ $a/nebula-clone/one-var/
-rsync -apvog /usr/lib/one/ $a/nebula-clone/one-usr/
-rsync -apvog /etc/one/ $a/nebula-clone/one-etc/
+rsync -apvog --progress /var/lib/one/ $a/nebula-clone/one-var/
+rsync -apvog --progress /usr/lib/one/ $a/nebula-clone/one-usr/
+rsync -apvog --progress /etc/one/ $a/nebula-clone/one-etc/
 clear
 echo "Cloning finished . Clone image saved under  $(tput setaf 2)$a/nebula-clone$(tput sgr0) For restoration use $(tput setaf 3)restore$(tput sgr0) option "
 
@@ -164,9 +164,9 @@ rm -rf /var/lib/one/*
 rm -rf /var/lib/one/.*
 rm -rf /usr/lib/one/*
 rm -rf /etc/one/*
-rsync -apvog $a/one-var/ /var/lib/one/
-cp -rvf $a/one-usr/ /usr/lib/one/
-cp -rvf $a/one-etc/ /etc/one/
+rsync -apvog --progress $a/one-var/ /var/lib/one/
+rsync -apvog --progress $a/one-usr/ /usr/lib/one/
+rsync -apvog --progress $a/one-etc/ /etc/one/
 chown -R oneadmin:oneadmin /var/lib/one
 
 clear
