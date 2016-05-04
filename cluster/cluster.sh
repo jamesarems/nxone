@@ -114,6 +114,19 @@ rsync -apvog --rsh="sshpass -p $o ssh -o StrictHostKeyChecking=no -l root" /var/
 clear
 echo "Syncing completed"
 
+elif [ "$1" == "help" ] ; then
+echo "$(tput setaf 1)sync$(tput sgr0)  :  Sync between opennebula master and slave"
+echo "$(tput setaf 1)setup$(tput sgr0)  :  Setup Cluster service"
+echo "$(tput setaf 1)master$(tput sgr0)  :  Configure master cluster server"
+echo "$(tput setaf 1)clone$(tput sgr0)  :  Clone entire opennebula"
+echo "$(tput setaf 1)restore$(tput sgr0)  :  Restore entire opennebula from clone image"
+echo "$(tput setaf 1)add-host$(tput sgr0)  :  Add KVM host to opennebula"
+echo "$(tput setaf 1)attach-pcs$(tput sgr0)  :  Attach lost ha service"
+echo "$(tput setaf 1)mount-gluster$(tput sgr0)  :  Mount detached glusterfs"
+echo "$(tput setaf 1)attach-lizard$(tput sgr0)  :  Attach lizardfs service to master server"
+
+else
+
 elif [ "$1" == "clone" ] ; then
 clear
 echo "**********************************"
@@ -154,7 +167,7 @@ rm -rf /etc/one/*
 rsync -apvog $a/one-var/ /var/lib/one/
 cp -rvf $a/one-usr/ /usr/lib/one/
 cp -rvf $a/one-etc/ /etc/one/
-chown oneadmin:oneadmin /var/lib/one
+chown -R oneadmin:oneadmin /var/lib/one
 
 clear
 echo "Restoration finished ."
@@ -206,5 +219,5 @@ chown oneadmin:oneadmin /var/lib/one
 df -h
 
 else
-echo "Invalid parameter"
+echo "Invalid parameter . Fore more type help"
 fi
