@@ -125,8 +125,6 @@ echo "$(tput setaf 1)attach-pcs$(tput sgr0)  :  Attach lost ha service"
 echo "$(tput setaf 1)mount-gluster$(tput sgr0)  :  Mount detached glusterfs"
 echo "$(tput setaf 1)attach-lizard$(tput sgr0)  :  Attach lizardfs service to master server"
 
-else
-
 elif [ "$1" == "clone" ] ; then
 clear
 echo "**********************************"
