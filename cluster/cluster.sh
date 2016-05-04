@@ -125,10 +125,11 @@ clear
 read -p "Mounted location (eg: /mnt/disk ) :" a
 
 yum install rsync -y
-mkdir $a/nebula-cone
-cp -rvf /var/lib/one $a/nebula-clone/one-var
-cp -rvf /usr/lib/one $a/nebula-clone/one-usr
-cp -rvf /etc/one $a/nebula-clone/one-etc
+mkdir $a/nebula-clone
+mkdir $a/nebula-clone/one-{var,usr,etc}
+rsync -apvog /var/lib/one/ $a/nebula-clone/one-var/
+rsync -apvog /usr/lib/one/ $a/nebula-clone/one-usr/
+rsync -apvog /etc/one/ $a/nebula-clone/one-etc/
 clear
 echo "Cloning finished . Clone image saved under  $(tput setaf 2)$a/nebula-clone$(tput sgr0) For restoration use $(tput setaf 3)restore$(tput sgr0) option "
 
