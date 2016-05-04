@@ -68,6 +68,12 @@ First install Step 3 from above and continue here.
 
   cloud-install lizardfs-chunk
 
+# Cloning and Restore
+
+Cloning and restore feature is added. For this feature you need to use "cloud" command .
+
+This feature will clone your entire opennebula platform to your desired location. After any desaster you can easly revert back using restore functionality. 
+
 
 # High Availability
 
