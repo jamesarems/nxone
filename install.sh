@@ -1,5 +1,12 @@
 #!/bin/bash
 #
+######
+##This installer file is using
+## Because of your easy pupose
+## This will clone all script file to your PC
+############
+## And you can excecute commands from anywhere.
+##
 rm -rf /usr/bin/cloud-install
 rm -rf /usr/bin/cloud
 find / -iname cloud-install.sh -exec mv {} /usr/bin/cloud-install \;
