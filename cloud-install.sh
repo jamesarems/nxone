@@ -28,6 +28,11 @@ sed -i 's/:host: 127.0.0.1/:host: 0.0.0.0/g' /etc/one/sunstone-server.conf
 #sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 systemctl enable opennebula
 systemctl start opennebula
+chmod +x /etc/rc.d/rc.local
+mv -f /var/cloud /var/cloud.bak >> /var/log/cloud.log
+mkdir /var/cloud
+touch /var/cloud/service.sh
+chmod +x /var/cloud/service.sh
 systemctl enable opennebula-sunstone
 systemctl start opennebula-sunstone
 
@@ -286,6 +291,7 @@ gluster peer probe $a
 gluster peer probe $b
 gluster volume create $c replica 2 $a:$d $b:$d force
 gluster volume start $c
+echo "mount -a" >> /var/cloud/service.sh
 clear
 gluster volume info
 echo "Configuration Completed"
