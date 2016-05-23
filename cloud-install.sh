@@ -29,6 +29,7 @@ sed -i 's/:host: 127.0.0.1/:host: 0.0.0.0/g' /etc/one/sunstone-server.conf
 systemctl enable opennebula
 systemctl start opennebula
 chmod +x /etc/rc.d/rc.local
+echo "sh /var/cloud/service.sh"
 mv -f /var/cloud /var/cloud.bak >> /var/log/cloud.log
 mkdir /var/cloud
 touch /var/cloud/service.sh
