@@ -1,4 +1,4 @@
-## OpenNebula-Automation  V 1.1 Beta
+## OpenNebula-Automation  V 1.2
 OpenNebula offers a simple but feature-rich and flexible solution to build and manage enterprise clouds and virtualized data centers. OpenNebula is designed to be simple. Simple to install, update and operate by the admins, and simple to use by end users. Being focused on simplicity, we integrate with existing technologies whenever possible. You’ll see that OpenNebula works with MySQL, Ceph, LVM, GlusterFS, Open vSwitch, LDAP... This allows us to deliver a light, flexible and robust cloud manager.
 
 # Requirement
@@ -9,6 +9,14 @@ OpenNebula offers a simple but feature-rich and flexible solution to build and m
 * Internet
 * Atleast 4GB RAM and 100GB storage.
 * SELinux and Firewalld msut be in Disabled mode .
+
+# OpenNebula 5.0 Beta available
+
+You can test opennebula 5.0 using this installer. How ever 5.0 is not stable and for production 4.14 is recommended.
+
+To Use Run,
+
+cloud-install setup5
 
 # Usage
 
