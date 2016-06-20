@@ -378,7 +378,7 @@ read -p "Gluster node 2 hostname:" b
 sleep 4s
 yum install wget -y
 wget -P /etc/yum.repos.d http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo
-yum install glusterfs-server -y
+yum install glusterfs glusterfs-fuse  -y
 service glusterd start
 gluster peer probe $a
 gluster peer probe $b
