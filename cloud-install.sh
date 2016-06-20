@@ -111,7 +111,7 @@ echo "Please reboot your machine to complete this installation"
 #OPennebula 5.0 Beta
 elif [ "$1" == "setup5" ]; then
 clear
-echo "Installing OpenNebula 4.90 / 5.0 Beta"
+echo "Installing OpenNebula 5.0 SP1"
 sleep 5s
 read -p "Fully Qualified Domain Name to set:" f
 read -p "Your network interface name (eg: eth0 or enp3s0 ) :" g
@@ -121,7 +121,7 @@ yum install epel-release -y
 cat << EOT > /etc/yum.repos.d/opennebula.repo
 [opennebula]
 name=opennebula
-baseurl=http://downloads.opennebula.org/repo/5.0/CentOS/7/x86_64/opennebula-4.90.0-1/
+baseurl=http://downloads.opennebula.org/repo/5.0/CentOS/7/x86_64
 enabled=1
 gpgcheck=0
 EOT
