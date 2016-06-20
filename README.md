@@ -10,9 +10,9 @@ OpenNebula offers a simple but feature-rich and flexible solution to build and m
 * Atleast 4GB RAM and 100GB storage.
 * SELinux and Firewalld msut be in Disabled mode .
 
-# OpenNebula 5.0 Beta available
+# OpenNebula 5.0 SP1 available
 
-You can test opennebula 5.0 using this installer. How ever 5.0 is not stable and for production 4.14 is recommended.
+You can also install latest stable Opennebula 5.0 using this installer.
 
 To Use Run,
 
