@@ -376,9 +376,14 @@ echo "Installing GlusterFS"
 read -p "Gluster node 1 hostname:" a
 read -p "Gluster node 2 hostname:" b
 sleep 4s
-yum install wget -y
-wget -P /etc/yum.repos.d http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo
-yum install glusterfs glusterfs-fuse  -y
+cat << EOT > /etc/yum.repos.d/glusterfs.repo
+[gluster]
+name=gluster
+baseurl=http://buildlogs.centos.org/centos/7/storage/x86_64/gluster-3.8/
+enabled=1
+gpgcheck=0
+EOT
+yum install glusterfs-server  -y
 service glusterd start
 gluster peer probe $a
 gluster peer probe $b
