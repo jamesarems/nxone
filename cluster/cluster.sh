@@ -29,9 +29,9 @@ systemctl disable opennebula-gate
 systemctl disable opennebula-flow
 
 echo "cloud attach-pcs"
-rm -rf /usr/bin/cloud
-find / -iname cluster.sh -exec cp -r {} /usr/bin/cloud \;
-chmod +x /usr/bin/cloud
+#rm -rf /usr/bin/cloud
+#find / -iname cluster.sh -exec cp -r {} /usr/bin/cloud \;
+#chmod +x /usr/bin/cloud
 systemctl start pcsd.service
 systemctl enable pcsd.service
 systemctl enable corosync.service
