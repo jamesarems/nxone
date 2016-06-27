@@ -123,6 +123,7 @@ echo "$(tput setaf 1)clone$(tput sgr0)  :  Clone entire opennebula"
 echo "$(tput setaf 1)restore$(tput sgr0)  :  Restore entire opennebula from clone image"
 echo "$(tput setaf 1)add-host$(tput sgr0)  :  Add KVM host to opennebula"
 echo "$(tput setaf 1)attach-pcs$(tput sgr0)  :  Attach lost ha service"
+echo "$(tput setaf 1)joinmfs$(tput sgr0)  :  Join lost mfs service"
 echo "$(tput setaf 1)mount-gluster$(tput sgr0)  :  Mount detached glusterfs"
 echo "$(tput setaf 1)attach-lizard$(tput sgr0)  :  Attach lizardfs service to master server"
 
@@ -170,6 +171,15 @@ chown -R oneadmin:oneadmin /var/lib/one
 
 clear
 echo "Restoration finished ."
+
+elif [ "$1" == "joinmfs" ] ; then
+mfsmetalogger restart
+mfscgiserv restart
+mfschunkserver restart
+mfsmaster reload
+service lizardfs-master restart
+clear
+echo "Lizardfs rejoined"
 
 elif [ "$1" == "add-host" ] ; then
 clear
