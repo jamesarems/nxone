@@ -198,7 +198,7 @@ PWD=`cut -c 10-50 /var/lib/one/.one/one_auth`
 #IP='hostname -i'
 
 echo "*****************************************************" >> /etc/motd
-echo "       Opennebula 5.0 Beta OS by James PS             " >> /etc/motd
+echo "       Opennebula 5.0 OS by James PS             " >> /etc/motd
 echo "        https://github.com/jamesarems            " >> /etc/motd
 echo "                 (c) 2016           " >> /etc/motd
 echo "*****************************************************" >> /etc/motd
@@ -278,7 +278,7 @@ cp /etc/mfs/mfsexports.cfg.dist /etc/mfs/mfsexports.cfg
 #cp /etc/mfs/mfsgoals.cfg.dist /etc/mfs/mfsgoals.cfg
 #cp /etc/mfs/mfstopology.cfg.dist /etc/mfs/mfstopology.cfg
 #cp /var/lib/mfs/metadata.mfs.empty /var/lib/mfs/metadata.mfs
-sed -i 's/# PERSONALITY = master /PERSONALITY = shadow/g' /etc/mfs/mfsmaster.cfg
+sed -i 's/# PERSONALITY = master/PERSONALITY = shadow/g' /etc/mfs/mfsmaster.cfg
 systemctl enable lizardfs-master
 systemctl start lizardfs-master
 clear
