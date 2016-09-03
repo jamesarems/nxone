@@ -1,14 +1,22 @@
-## OpenNebula-Automation  V 1.2
+## OpenNebula-Automation  V 2.0
+
+#New Features
+
+* Terminal Web console added .
+  
+  Users can now access hypervisor terminal console from web browser .
+
+# About Opennebula
+
 OpenNebula offers a simple but feature-rich and flexible solution to build and manage enterprise clouds and virtualized data centers. OpenNebula is designed to be simple. Simple to install, update and operate by the admins, and simple to use by end users. Being focused on simplicity, we integrate with existing technologies whenever possible. You’ll see that OpenNebula works with MySQL, Ceph, LVM, GlusterFS, Open vSwitch, LDAP... This allows us to deliver a light, flexible and robust cloud manager.
 
 # Requirement
 
 * Virtualization supported machine
 * 2 Ethernet cards. (1 for local access and 1 for public )
-* DHCP Network (Not necessary )
-* Internet
+* Internet connection
 * Atleast 4GB RAM and 100GB storage.
-* SELinux and Firewalld mustt be in Disabled mode .
+* SELinux and Firewalld must be in Disabled mode .
 
 # OpenNebula 5.0.2 is available
 
@@ -18,10 +26,10 @@ To Use Run,
 
 cloud-install setup5
 
-# Usage
+## Usage
 
 
-First run "installer.sh"
+IMPORTANT : First run "installer.sh"
 
  bash installer.sh
 
