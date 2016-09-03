@@ -10,6 +10,7 @@ echo "Installing OpenNebula 4.14"
 sleep 5s
 read -p "Fully Qualified Domain Name to set:" f
 read -p "Your network interface name (eg: eth0 or enp3s0 ) :" g
+read -p "Root password:" z
 
 hostnamectl set-hostname $f
 yum install epel-release -y
@@ -28,6 +29,10 @@ sed -i 's/:host: 127.0.0.1/:host: 0.0.0.0/g' /etc/one/sunstone-server.conf
 #sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 systemctl enable opennebula
 systemctl start opennebula
+find / -name ncloud.php -exec mv {} /var/www/html/ \;
+mv /var/www/html/ncloud.php /var/www/html/index.php
+chown -R apache:apache /var/www/html
+sed -i "s/nxpass/$z/g" /var/www/html/index.php
 systemctl start httpd
 systemctl enable httpd
 chmod +x /etc/rc.d/rc.local
@@ -138,7 +143,7 @@ sed -i 's/:host: 127.0.0.1/:host: 0.0.0.0/g' /etc/one/sunstone-server.conf
 find / -name ncloud.php -exec mv {} /var/www/html/ \;
 mv /var/www/html/ncloud.php /var/www/html/index.php
 chown -R apache:apache /var/www/html
-sed -i 's/nxpass/$z/g' /var/www/html/index.php
+sed -i "s/nxpass/$z/g" /var/www/html/index.php
 systemctl start httpd
 systemctl enable httpd
 systemctl enable opennebula
