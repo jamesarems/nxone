@@ -8,7 +8,7 @@
 // Single-user credentials
 // Example: $USER = 'user'; $PASSWORD = 'password';
 $USER = 'root';
-$PASSWORD = '';
+$PASSWORD = 'nxpass';
 
 // Multi-user credentials
 // Example: $ACCOUNTS = array('user1' => 'password1', 'user2' => 'password2');
