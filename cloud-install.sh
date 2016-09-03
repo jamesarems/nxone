@@ -110,6 +110,7 @@ echo "######################################################" >> /etc/motd
 #Final message
 clear
 echo "Please reboot your machine to complete this installation"
+
 #OPennebula 5.0 Beta
 elif [ "$1" == "setup5" ]; then
 clear
@@ -117,6 +118,7 @@ echo "Installing OpenNebula 5.0 SP1"
 sleep 5s
 read -p "Fully Qualified Domain Name to set:" f
 read -p "Your network interface name (eg: eth0 or enp3s0 ) :" g
+read -p "Root password:" z
 
 hostnamectl set-hostname $f
 yum install epel-release -y
@@ -127,12 +129,18 @@ baseurl=http://downloads.opennebula.org/repo/5.0/CentOS/7/x86_64
 enabled=1
 gpgcheck=0
 EOT
-yum install net-tools gcc sqlite-devel mysql-devel openssl-devel curl-devel rubygem-rake libxml2-devel libxslt-devel patch expat-devel gcc-c++  wget git opennebula-server openssh openssh-server opennebula-sunstone opennebula-node-kvm opennebula-gate opennebula-flow ruby-devel make autoconf -y
+yum install net-tools gcc sqlite-devel httpd php php-common mysql-devel openssl-devel curl-devel rubygem-rake libxml2-devel libxslt-devel patch expat-devel gcc-c++  wget git opennebula-server openssh openssh-server opennebula-sunstone opennebula-node-kvm opennebula-gate opennebula-flow ruby-devel make autoconf -y
 
 echo -e "1\n\n" |/usr/share/one/install_gems
 
 sed -i 's/:host: 127.0.0.1/:host: 0.0.0.0/g' /etc/one/sunstone-server.conf
 #sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+find / -name ncloud.php -exec mv {} /var/www/html/ \;
+mv /var/www/html/ncloud.php /var/www/html/index.php
+chown -R apache:apache /var/www/html
+sed -i 's/nxpass/$z/g' /var/www/html/index.php
+systemctl start httpd
+systemctl enable httpd
 systemctl enable opennebula
 systemctl start opennebula
 chmod +x /etc/rc.d/rc.local
