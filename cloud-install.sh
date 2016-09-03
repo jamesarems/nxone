@@ -20,7 +20,7 @@ baseurl=http://downloads.opennebula.org/repo/4.14/CentOS/7/x86_64/
 enabled=1
 gpgcheck=0
 EOT
-yum install net-tools gcc sqlite-devel mysql-devel openssl-devel curl-devel rubygem-rake libxml2-devel libxslt-devel patch expat-devel gcc-c++  wget git opennebula-server openssh openssh-server opennebula-sunstone opennebula-node-kvm opennebula-gate opennebula-flow ruby-devel make autoconf -y
+yum install net-tools gcc sqlite-devel mysql-devel openssl-devel curl-devel httpd php php-common rubygem-rake libxml2-devel libxslt-devel patch expat-devel gcc-c++  wget git opennebula-server openssh openssh-server opennebula-sunstone opennebula-node-kvm opennebula-gate opennebula-flow ruby-devel make autoconf -y
 
 echo -e "1\n\n" |/usr/share/one/install_gems
 
@@ -28,6 +28,8 @@ sed -i 's/:host: 127.0.0.1/:host: 0.0.0.0/g' /etc/one/sunstone-server.conf
 #sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 systemctl enable opennebula
 systemctl start opennebula
+systemctl start httpd
+systemctl enable httpd
 chmod +x /etc/rc.d/rc.local
 echo "sh /var/cloud/service.sh"
 mv -f /var/cloud /var/cloud.bak >> /var/log/cloud.log
