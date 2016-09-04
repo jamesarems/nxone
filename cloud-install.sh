@@ -251,7 +251,7 @@ echo "                 (c) 2016           " >> /etc/motd
 echo "*****************************************************" >> /etc/motd
 echo "    Username : oneadmin   " >> /etc/motd
 echo "    Password : $PWD      "  >> /etc/motd
-echo "    Web UI : http://systemIP:9869     " >> /etc/motd
+echo "    Web UI : http://$IP:9869     " >> /etc/motd
 echo "    Web Terminal : https://$IP:10443    " >> /etc/motd
 echo "    NOTE: If you are not getting network connection, then you have to configure network manually     " >> /etc/motd
 echo "    Details available on https://github.com/jamesarems/opennebula-distro" >> /etc/motd
@@ -301,7 +301,7 @@ curl http://packages.lizardfs.com/yum/el7/lizardfs.repo > /etc/yum.repos.d/lizar
 yum update -y
 yum install lizardfs-master lizardfs-chunkserver lizardfs-cgiserv lizardfs-metalogger lizardfs-client -y
 clear
-echo "LIzardFS packages installed. Run this step on every lizardfs nodes"
+echo "LizardFS packages installed. Run this step on every lizardfs nodes"
 
 elif [ "$1" == "lizardfs-master" ]; then
 clear
