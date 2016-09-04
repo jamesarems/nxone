@@ -21,7 +21,7 @@ baseurl=http://downloads.opennebula.org/repo/4.14/CentOS/7/x86_64/
 enabled=1
 gpgcheck=0
 EOT
-yum install net-tools gcc sqlite-devel mysql-devel openssl-devel curl-devel httpd php php-common rubygem-rake libxml2-devel libxslt-devel patch expat-devel gcc-c++  wget git opennebula-server openssh openssh-server opennebula-sunstone opennebula-node-kvm opennebula-gate opennebula-flow ruby-devel make autoconf -y
+yum install net-tools gcc sqlite-devel mysql-devel screen python python-pip openssl-devel curl-devel httpd php php-common rubygem-rake libxml2-devel libxslt-devel patch expat-devel gcc-c++  wget git opennebula-server openssh openssh-server opennebula-sunstone opennebula-node-kvm opennebula-gate opennebula-flow ruby-devel make autoconf -y
 
 echo -e "1\n\n" |/usr/share/one/install_gems
 
@@ -29,18 +29,24 @@ sed -i 's/:host: 127.0.0.1/:host: 0.0.0.0/g' /etc/one/sunstone-server.conf
 #sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 systemctl enable opennebula
 systemctl start opennebula
-find / -name ncloud.php -exec mv {} /var/www/html/ \;
-mv /var/www/html/ncloud.php /var/www/html/index.php
-chown -R apache:apache /var/www/html
-sed -i "s/nxpass/$z/g" /var/www/html/index.php
-systemctl start httpd
-systemctl enable httpd
+#find / -name ncloud.php -exec mv {} /var/www/html/ \;
+#mv /var/www/html/ncloud.php /var/www/html/index.php
+#chown -R apache:apache /var/www/html
+#sed -i "s/nxpass/$z/g" /var/www/html/index.php
+#systemctl start httpd
+#systemctl enable httpd
+pip install --upgrade setuptools
+find / -name GateOne -exec cp -rv {} /var \;
+python /var/GateOne/setup.py install
+cd /var/GateOne ; screen -dmS terminal ./run_gateone.py
+
 chmod +x /etc/rc.d/rc.local
-echo "sh /var/cloud/service.sh"
+echo "sh /var/cloud/service.sh" >> /etc/rc.d/rc.local
 mv -f /var/cloud /var/cloud.bak >> /var/log/cloud.log
 mkdir /var/cloud
 touch /var/cloud/service.sh
 chmod +x /var/cloud/service.sh
+echo "cd /var/GateOne ; screen -dmS terminal ./run_gateone.py" >> /var/cloud/service.sh
 systemctl enable opennebula-sunstone
 systemctl start opennebula-sunstone
 
@@ -97,7 +103,7 @@ systemctl restart sshd
 cat /dev/null > /etc/motd
 
 PWD=`cut -c 10-50 /var/lib/one/.one/one_auth`
-#IP='hostname -i'
+IP='hostname -i'
 
 echo "*****************************************************" >> /etc/motd
 echo "       Opennebula 4.14 OS by James PS             " >> /etc/motd
@@ -106,7 +112,8 @@ echo "                 (c) 2016           " >> /etc/motd
 echo "*****************************************************" >> /etc/motd
 echo "    Username : oneadmin   " >> /etc/motd
 echo "    Password : $PWD      "  >> /etc/motd
-echo "    Web UI : http://systemIP:9869     " >> /etc/motd
+echo "    Web UI : http://$IP:9869     " >> /etc/motd
+echo "    Web Terminal : https://$IP:10443    " >> /etc/motd
 echo "    NOTE: If you are not getting network connection, then you have to configure network manually     " >> /etc/motd
 echo "    Details available on https://github.com/jamesarems/opennebula-distro" >> /etc/motd
 echo "######################################################" >> /etc/motd
@@ -134,26 +141,32 @@ baseurl=http://downloads.opennebula.org/repo/5.0/CentOS/7/x86_64
 enabled=1
 gpgcheck=0
 EOT
-yum install net-tools gcc sqlite-devel httpd php php-common mysql-devel openssl-devel curl-devel rubygem-rake libxml2-devel libxslt-devel patch expat-devel gcc-c++  wget git opennebula-server openssh openssh-server opennebula-sunstone opennebula-node-kvm opennebula-gate opennebula-flow ruby-devel make autoconf -y
+yum install net-tools gcc sqlite-devel httpd screen php php-common mysql-devel python python-pip openssl-devel curl-devel rubygem-rake libxml2-devel libxslt-devel patch expat-devel gcc-c++  wget git opennebula-server openssh openssh-server opennebula-sunstone opennebula-node-kvm opennebula-gate opennebula-flow ruby-devel make autoconf -y
 
 echo -e "1\n\n" |/usr/share/one/install_gems
 
 sed -i 's/:host: 127.0.0.1/:host: 0.0.0.0/g' /etc/one/sunstone-server.conf
 #sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
-find / -name ncloud.php -exec mv {} /var/www/html/ \;
-mv /var/www/html/ncloud.php /var/www/html/index.php
-chown -R apache:apache /var/www/html
-sed -i "s/nxpass/$z/g" /var/www/html/index.php
-systemctl start httpd
-systemctl enable httpd
+#find / -name ncloud.php -exec mv {} /var/www/html/ \;
+#mv /var/www/html/ncloud.php /var/www/html/index.php
+#chown -R apache:apache /var/www/html
+#sed -i "s/nxpass/$z/g" /var/www/html/index.php
+pip install --upgrade setuptools
+find / -name GateOne -exec cp -rv {} /var \;
+python /var/GateOne/setup.py install
+cd /var/GateOne ; screen -dmS terminal ./run_gateone.py
+
+#systemctl start httpd
+#systemctl enable httpd
 systemctl enable opennebula
 systemctl start opennebula
 chmod +x /etc/rc.d/rc.local
-echo "sh /var/cloud/service.sh"
+echo "sh /var/cloud/service.sh" >> /etc/rc.d/rc.local
 mv -f /var/cloud /var/cloud.bak >> /var/log/cloud.log
 mkdir /var/cloud
 touch /var/cloud/service.sh
 chmod +x /var/cloud/service.sh
+echo "cd /var/GateOne ; screen -dmS terminal ./run_gateone.py" >> /var/cloud/service.sh
 systemctl enable opennebula-sunstone
 systemctl start opennebula-sunstone
 
@@ -210,7 +223,7 @@ systemctl restart sshd
 cat /dev/null > /etc/motd
 
 PWD=`cut -c 10-50 /var/lib/one/.one/one_auth`
-#IP='hostname -i'
+IP='hostname -i'
 
 echo "*****************************************************" >> /etc/motd
 echo "       Opennebula 5.0 OS by James PS             " >> /etc/motd
@@ -220,6 +233,7 @@ echo "*****************************************************" >> /etc/motd
 echo "    Username : oneadmin   " >> /etc/motd
 echo "    Password : $PWD      "  >> /etc/motd
 echo "    Web UI : http://systemIP:9869     " >> /etc/motd
+echo "    Web Terminal : https://$IP:10443    " >> /etc/motd
 echo "    NOTE: If you are not getting network connection, then you have to configure network manually     " >> /etc/motd
 echo "    Details available on https://github.com/jamesarems/opennebula-distro" >> /etc/motd
 echo "######################################################" >> /etc/motd
