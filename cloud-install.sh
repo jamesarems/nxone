@@ -243,7 +243,6 @@ systemctl restart sshd
 cat /dev/null > /etc/motd
 
 PWD=`cut -c 10-50 /var/lib/one/.one/one_auth`
-IP='hostname -i'
 
 echo "*****************************************************" >> /etc/motd
 echo "       Opennebula 5.0 OS by James PS             " >> /etc/motd
