@@ -10,7 +10,8 @@ echo "Installing OpenNebula 4.14"
 sleep 5s
 read -p "Fully Qualified Domain Name to set:" f
 read -p "Your network interface name (eg: eth0 or enp3s0 ) :" g
-read -p "Root password:" z
+#read -p "Root password:" z
+read -p "Cloud admin password:" y
 
 hostnamectl set-hostname $f
 yum install epel-release -y
@@ -27,6 +28,7 @@ echo -e "1\n\n" |/usr/share/one/install_gems
 
 sed -i 's/:host: 127.0.0.1/:host: 0.0.0.0/g' /etc/one/sunstone-server.conf
 #sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+echo "oneadmin:$y" > /var/lib/one/.one/one_auth
 systemctl enable opennebula
 systemctl start opennebula
 #find / -name ncloud.php -exec mv {} /var/www/html/ \;
@@ -65,6 +67,14 @@ systemctl enable libvirtd.service
 systemctl start libvirtd.service
 systemctl enable nfs.service
 systemctl start nfs.service
+
+##Branding
+IP=`hostname -i`
+rm -rf /usr/lib/one
+find / -name nxone -exec mv -v {} /usr/lib/one \;
+sed -i "s/terminalgo/$IP/g" /usr/lib/one/sunstone/views/login.erb
+service opennebula restart
+service opennebula-sunstone restart
 
 ##Network Settings
 
@@ -103,7 +113,6 @@ systemctl restart sshd
 cat /dev/null > /etc/motd
 
 PWD=`cut -c 10-50 /var/lib/one/.one/one_auth`
-IP='hostname -i'
 
 echo "*****************************************************" >> /etc/motd
 echo "       Opennebula 4.14 OS by James PS             " >> /etc/motd
@@ -130,7 +139,8 @@ echo "Installing OpenNebula 5.0 SP1"
 sleep 5s
 read -p "Fully Qualified Domain Name to set:" f
 read -p "Your network interface name (eg: eth0 or enp3s0 ) :" g
-read -p "Root password:" z
+#read -p "Root password:" z
+read -p "Cloud admin password :" y
 
 hostnamectl set-hostname $f
 yum install epel-release -y
@@ -158,6 +168,7 @@ cd /var/GateOne ; screen -dmS terminal ./run_gateone.py
 
 #systemctl start httpd
 #systemctl enable httpd
+echo "oneadmin:$y" > /var/lib/one/.one/one_auth
 systemctl enable opennebula
 systemctl start opennebula
 chmod +x /etc/rc.d/rc.local
@@ -185,6 +196,15 @@ systemctl enable libvirtd.service
 systemctl start libvirtd.service
 systemctl enable nfs.service
 systemctl start nfs.service
+
+##Branding
+
+IP=`hostname -i`
+rm -rf /usr/lib/one
+find / -name nxone -exec mv -v {} /usr/lib/one \;
+sed -i "s/terminalgo/$IP/g" /usr/lib/one/sunstone/views/login.erb
+service opennebula restart
+service opennebula-sunstone restart
 
 ##Network Settings
 

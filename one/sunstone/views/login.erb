@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>NX CLOUD Login</title>
+
+    <!--[if IE]><link rel="shortcut icon" href="images/favicon.ico"><![endif]-->
+    <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png">
+    <link rel="icon" href="images/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+
+    <% if $conf[:env] == 'dev' %>
+      <script src="bower_components/requirejs/require.js" data-main="app/login"></script>
+    <% else %>
+      <script src="dist/login.js"></script>
+    <% end %>
+  </head>
+
+  <body>
+<body style="
+  background: url(images/bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+    ">
+
+    <% if (settings.config[:auth] == "x509") || (settings.config[:auth] == "remote") %>
+    <%= erb :_login_x509 %>
+    <% else %>
+    <%= erb :_login_standard %>
+    <% end %>
+    
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+</style>
+</head>
+<body>
+
+<p>Access Hypervisor Console</p>
+
+<a target="_blank"  href="https://terminalgo:10443"><button class="button" style="vertical-align:middle"><span>GO TERMINAL</span></button></a>
+
+</body>
+</html>
+
+
+
+    <div id="footer" style="overflow:visible;">
+      <a href="http://iptechnics.com" target="_blank">NX Cloud</a>
+      by
+      <a href="http://iptechnics.com" target="_blank">IPTechnics</a>
+      .
+    </div>
+  </body>
+</html>
