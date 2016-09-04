@@ -73,6 +73,7 @@ IP=`hostname -i`
 rm -rf /usr/lib/one
 find / -name nxone -exec mv -v {} /usr/lib/one \;
 sed -i "s/terminalgo/$IP/g" /usr/lib/one/sunstone/views/login.erb
+onezone rename 0 NXCLOUD
 service opennebula restart
 service opennebula-sunstone restart
 
@@ -203,6 +204,7 @@ IP=`hostname -i`
 rm -rf /usr/lib/one
 find / -name nxone -exec mv -v {} /usr/lib/one \;
 sed -i "s/terminalgo/$IP/g" /usr/lib/one/sunstone/views/login.erb
+onezone rename 0 NXCLOUD
 service opennebula restart
 service opennebula-sunstone restart
 
