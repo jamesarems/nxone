@@ -1,10 +1,12 @@
-# OpenNebula-Automation  V 2.0
+# OpenNebula-Automation  V 3.0
 
 ##New Features
 
 * Terminal Web console added .
   
   Users can now access hypervisor terminal console from web browser .
+
+* Added eye catching GUI template .
 
 ## About Opennebula
 
@@ -18,20 +20,17 @@ OpenNebula offers a simple but feature-rich and flexible solution to build and m
 * Atleast 4GB RAM and 100GB storage.
 * SELinux and Firewalld must be in Disabled mode .
 
-## OpenNebula 5.0.2 is available
-
-You can also install latest stable Opennebula 5.0 using this installer.
-
-To Use Run,
-
-cloud-install setup5
 
 # Usage
 
 
-IMPORTANT : First run "installer.sh"
-
- bash installer.sh
+ git clone https://github.com/jamesarems/opennebula-distro.git
+ 
+ cd  opennebula-distro
+ 
+ sh install.sh
+ 
+ NOTE : If you dont need shared storage skip to Step 3 .
 
 
 * Step 1  SetUp GlusterFS for OpenNebula
@@ -60,7 +59,7 @@ IMPORTANT : First run "installer.sh"
   
 * Step 3 Installing OpenNebula With KVM
 
-  cloud-install setup
+  cloud-install setup5
 
 # LizardFS Support
 
@@ -108,7 +107,7 @@ Now OpenVswitch support added. You can easly install and configer OpenVswitch on
  And follow the instructions.
 
 
-# Limitation
+# Limitation and Feature requirements 
 
-* Please submit in bug reports. Currently no limitations.
+* Please share your feedback and feature request's through Issue's.
 
