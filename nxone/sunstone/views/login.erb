@@ -18,13 +18,39 @@
   </head>
 
   <body>
-<body style="
-  background: url(images/bg.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-    ">
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+#background {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: url(polina.jpg) no-repeat;
+    background-size: cover;
+}
+.container h1 {
+    color: white;
+}
+
+</style>
+</head>
+<body>
+<video autoplay loop muted poster="images/bdv.jpg" id="background">
+    <source src="images/For_Wes.mp4" type="video/mp4">
+</video>
+
+</body>
+</html>
 
     <% if (settings.config[:auth] == "x509") || (settings.config[:auth] == "remote") %>
     <%= erb :_login_x509 %>
