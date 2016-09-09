@@ -24,11 +24,11 @@ OpenNebula offers a simple but feature-rich and flexible solution to build and m
 # Usage
 
 
- git clone https://github.com/jamesarems/opennebula-distro.git
+ > git clone https://github.com/jamesarems/opennebula-distro.git
  
- cd  opennebula-distro
+ > cd  opennebula-distro
  
- sh install.sh
+ > sh install.sh
  
  NOTE : If you dont need shared storage skip to Step 3 .
 
@@ -41,7 +41,7 @@ OpenNebula offers a simple but feature-rich and flexible solution to build and m
   
   eg : mkdir /data
   
- mount /dev/sdc1 /data
+ > mount /dev/sdc1 /data
 
   After that we need to create a directory inside the mount point . Glusterfs will not work with mount point itself.
   
@@ -49,17 +49,17 @@ OpenNebula offers a simple but feature-rich and flexible solution to build and m
   
   After this we all set to go with installer. 
   
-   cloud-install gluster
+  > cloud-install gluster
   
   Run this command on both servers.
   
 * Step 2  Configuring GlusterFS  
 
-  cloud-install glusterconf
+  > cloud-install glusterconf
   
 * Step 3 Installing OpenNebula With KVM
 
-  cloud-install setup5
+  > cloud-install setup5
 
 # LizardFS Support
 
@@ -67,21 +67,23 @@ We can install Lizardfs rather than using glusterFS . If you are intrested about
 
 First install Step 3 from above and continue here.
 
+ > cloud-install lizardfs
+
 * Step 1a  Install LizardFS master .
 
-  cloud-install lizardfs-master
+  > cloud-install lizardfs-master
 
 * Step 2a  Configuring shadow server
 
   Execute this commands in every nodes except master.
 
-  cloud-install lizardfs-shadow
+  > cloud-install lizardfs-shadow
 
 * Step 2b  Configuring Chunk nodes
 
   NOTE : You have to run this command on every nodes. 
 
-  cloud-install lizardfs-chunk
+ >  cloud-install lizardfs-chunk
 
 # Cloning and Restore
 
@@ -98,11 +100,11 @@ We can configure opennebula as highly available system. Please refer "Cluster" s
 
 Now OpenVswitch support added. You can easly install and configer OpenVswitch on your opennebula server. After Compleating *Step 3* just enter below commands. If you are not intrested with openVswitch , then continue with Cluster setup.
 
- cloud-install ovs
+ > cloud-install ovs
  
  Answer all the questions that installer asks. After that run,
  
- cloud-install ovs-conf
+ > cloud-install ovs-conf
  
  And follow the instructions.
 
