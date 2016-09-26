@@ -157,6 +157,7 @@ yum install net-tools gcc sqlite-devel httpd screen php php-common mysql-devel p
 echo -e "1\n\n" |/usr/share/one/install_gems
 
 sed -i 's/:host: 127.0.0.1/:host: 0.0.0.0/g' /etc/one/sunstone-server.conf
+sed -i 's/:port: 9869/:port: 80/g' /etc/one/sunstone-server.conf
 #sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 #find / -name ncloud.php -exec mv {} /var/www/html/ \;
 #mv /var/www/html/ncloud.php /var/www/html/index.php
@@ -247,15 +248,15 @@ cat /dev/null > /etc/motd
 PWD=`cut -c 10-50 /var/lib/one/.one/one_auth`
 
 echo "*****************************************************" >> /etc/motd
-echo "       Opennebula 5.0 OS by James PS             " >> /etc/motd
+echo "       NXONE 5.0 OS by James PS             " >> /etc/motd
 echo "        https://github.com/jamesarems            " >> /etc/motd
 echo "                 (c) 2016           " >> /etc/motd
 echo "*****************************************************" >> /etc/motd
 echo "    Username : oneadmin   " >> /etc/motd
 echo "    Password : $PWD      "  >> /etc/motd
-echo "    Web UI : http://$IP:9869     " >> /etc/motd
+echo "    Web UI : http://$IP     " >> /etc/motd
 echo "    Web Terminal : https://$IP:10443    " >> /etc/motd
-echo "    NOTE: If you are not getting network connection, then you have to configure network manually     " >> /etc/motd
+echo "    NOTE: Based tecnologies are copied from opennebula systems     " >> /etc/motd
 echo "    Details available on https://github.com/jamesarems/opennebula-distro" >> /etc/motd
 echo "######################################################" >> /etc/motd
 
