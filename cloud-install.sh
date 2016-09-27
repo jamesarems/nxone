@@ -457,6 +457,7 @@ gluster volume info
 echo "Configuration Completed"
 
 elif [ "$1" == "help" ] ; then
+echo "$(tput setaf 1)nxsetup$(tput sgr0)  :  Install NXONE Server with OpenNebula"
 echo "$(tput setaf 1)gluster$(tput sgr0)  :  Install GlusterFS Packages"
 echo "$(tput setaf 1)glusterconf$(tput sgr0)  :  Configure GlusterFS"
 echo "$(tput setaf 1)lizard$(tput sgr0)  :  Install LizardFS Packages"
