@@ -6,8 +6,12 @@
 if [ "$1" == "setup" ]; then
 
 clear
-echo "Installing OpenNebula 4.14"
+echo "OpenNebula Setup 4.14 is $(tput setaf 1)depreciated$(tput sgr0) "
+echo "Please use$(tput setaf 3)nxsetup$(tput sgr0)for latest version. "
+
 sleep 5s
+echo "Installing OpenNebula 4.14"
+sleep 3s
 read -p "Fully Qualified Domain Name to set:" f
 read -p "Your network interface name (eg: eth0 or enp3s0 ) :" g
 #read -p "Root password:" z
@@ -133,8 +137,8 @@ echo "######################################################" >> /etc/motd
 clear
 echo "Please reboot your machine to complete this installation"
 
-#OPennebula 5.0 Beta
-elif [ "$1" == "setup5" ]; then
+#Opennebula 5.0
+elif [ "$1" == "nxsetup" ]; then
 clear
 echo "Installing OpenNebula 5.0 SP1"
 sleep 5s
@@ -144,6 +148,8 @@ read -p "Your network interface name (eg: eth0 or enp3s0 ) :" g
 read -p "Cloud admin password :" y
 
 hostnamectl set-hostname $f
+
+IP=`hostname -i`
 yum install epel-release -y
 cat << EOT > /etc/yum.repos.d/opennebula.repo
 [opennebula]
@@ -157,19 +163,27 @@ yum install net-tools gcc sqlite-devel httpd screen php php-common mysql-devel p
 echo -e "1\n\n" |/usr/share/one/install_gems
 
 sed -i 's/:host: 127.0.0.1/:host: 0.0.0.0/g' /etc/one/sunstone-server.conf
-sed -i 's/:port: 9869/:port: 80/g' /etc/one/sunstone-server.conf
+sed -i 's/:port: 9869/:port: 8080/g' /etc/one/sunstone-server.conf
 #sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 #find / -name ncloud.php -exec mv {} /var/www/html/ \;
 #mv /var/www/html/ncloud.php /var/www/html/index.php
-#chown -R apache:apache /var/www/html
 #sed -i "s/nxpass/$z/g" /var/www/html/index.php
 pip install --upgrade setuptools
 find / -name GateOne -exec cp -rv {} /var \;
+
+mkdir -p /var/www/html
+rm -rf /var/www/html
+find / -name nxhtml -exec cp -rv {} /var/www/html \;
+chown -R apache:apache /var/www/html
+sed -i "s/nxonehyper/$IP/g" /var/www/html/index.php
+sed -i "s/nxonehyper/$IP/g" /var/www/html/terminal.php
+
+
 python /var/GateOne/setup.py install
 cd /var/GateOne ; screen -dmS terminal ./run_gateone.py
 
-#systemctl start httpd
-#systemctl enable httpd
+systemctl start httpd
+systemctl enable httpd
 echo "oneadmin:$y" > /var/lib/one/.one/one_auth
 systemctl enable opennebula
 systemctl start opennebula
@@ -201,7 +215,7 @@ systemctl start nfs.service
 
 ##Branding
 
-IP=`hostname -i`
+#IP=`hostname -i`
 rm -rf /usr/lib/one
 find / -name nxone -exec mv -v {} /usr/lib/one \;
 sed -i "s/terminalgo/$IP/g" /usr/lib/one/sunstone/views/login.erb
@@ -248,22 +262,21 @@ cat /dev/null > /etc/motd
 PWD=`cut -c 10-50 /var/lib/one/.one/one_auth`
 
 echo "*****************************************************" >> /etc/motd
-echo "       NXONE 5.0 OS by James PS             " >> /etc/motd
+echo "       NXONE 1.0 OS by James PS             " >> /etc/motd
 echo "        https://github.com/jamesarems            " >> /etc/motd
 echo "                 (c) 2016           " >> /etc/motd
 echo "*****************************************************" >> /etc/motd
 echo "    Username : oneadmin   " >> /etc/motd
 echo "    Password : $PWD      "  >> /etc/motd
 echo "    Web UI : http://$IP     " >> /etc/motd
-echo "    Web Terminal : https://$IP:10443    " >> /etc/motd
-echo "    NOTE: Based tecnologies are copied from opennebula systems     " >> /etc/motd
+echo "    NOTE: Base tecnologies are copied from opennebula systems     " >> /etc/motd
 echo "    Details available on https://github.com/jamesarems/opennebula-distro" >> /etc/motd
 echo "######################################################" >> /etc/motd
 
 ###
 #Final message
 clear
-echo "Please reboot your machine to complete this installation"
+echo "To configure networking run command $(tput setaf 3)cloud-install ovs$(tput sgr0) and $(tput setaf 3)cloud-install ovs-conf$(tput sgr0)"
 
 
 elif [ "$1" == "ovs" ] ; then
@@ -290,6 +303,7 @@ ovs-vsctl -V
 /etc/init.d/openvswitch start
 chkconfig openvswitch on
 echo "Installation completed"
+echo "Run $(tput setaf 3)cloud-install ovs-conf$(tput sgr0) "
 
 ##LizardsFS installation
 #Experimental
@@ -365,7 +379,7 @@ echo "**************************************************************************
 
 elif [ "$1" == "ovs-conf" ] ; then
 clear
-echo "Configuring OVS network"
+echo "Configuring OVS NXONE network"
 clear
 read -p "Your network adapter name (eg: eth0 , ens0p1) :" a
 read -p "Main IP Address:" b
@@ -414,12 +428,18 @@ read -p "WARNING : After copy and paste , please press ENTER. If you are not pla
 #echo "systemctl restart network"
 #echo "********************************"
 #echo "NOTE: if your connection were dropped , need to get direct connection from server"
+clear
+echo "Please be patient $(tput setaf 4)nxone$(tput sgr0) network is configuring...! "
 
 ovs-vsctl add-br br0
 ovs-vsctl add-port br0 $a
 systemctl restart network
 ovs-vsctl show
-#clear
+sleep 5s
+clear
+
+echo "$(tput setaf 4)NXONE$(tput sgr0)OVS network configured."
+echo "Please $(tput setaf 3)REBOOT$(tput sgr0) your machine to complete installation process"
 
 elif [ "$1" == "gluster" ] ; then
 clear
