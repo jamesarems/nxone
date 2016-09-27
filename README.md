@@ -1,4 +1,4 @@
-# OpenNebula-Automation  V 3.0
+# NXONE  V 1.0
 
 ##New Features
 
@@ -11,6 +11,10 @@
 ## About Opennebula
 
 OpenNebula offers a simple but feature-rich and flexible solution to build and manage enterprise clouds and virtualized data centers. OpenNebula is designed to be simple. Simple to install, update and operate by the admins, and simple to use by end users. Being focused on simplicity, we integrate with existing technologies whenever possible. You’ll see that OpenNebula works with MySQL, Ceph, LVM, GlusterFS, Open vSwitch, LDAP... This allows us to deliver a light, flexible and robust cloud manager.
+
+## About NXONE
+
+This project is based on Opennebula systems . Users can easly deploy cloud IAAS using with this project . 
 
 ## Requirement
 
@@ -33,7 +37,7 @@ OpenNebula offers a simple but feature-rich and flexible solution to build and m
  NOTE : If you dont need shared storage skip to Step 3 .
 
 
-* Step 1  SetUp GlusterFS for OpenNebula
+* Step 1  SetUp GlusterFS for NXONE
 
   Before setting up gluster , we need to add both hosts name in /etc/hosts file and also run *hostnamectl set-hostname "your FQDN"* .
   
@@ -57,9 +61,9 @@ OpenNebula offers a simple but feature-rich and flexible solution to build and m
 
   > cloud-install glusterconf
   
-* Step 3 Installing OpenNebula With KVM
+* Step 3 Installing NXONE
 
-  > cloud-install setup5
+  > cloud-install nxsetup
 
 # LizardFS Support
 
@@ -94,7 +98,7 @@ This feature will clone your entire opennebula platform to your desired location
 
 # High Availability
 
-We can configure opennebula as highly available system. Please refer "Cluster" section.
+We can configure nxone as highly available system. Please refer "Cluster" section.
 
 # Networking
 
