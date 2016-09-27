@@ -140,16 +140,15 @@ echo "Please reboot your machine to complete this installation"
 #Opennebula 5.0
 elif [ "$1" == "nxsetup" ]; then
 clear
-echo "Installing OpenNebula 5.0 SP1"
+echo "Installing NXONE 1.0 with OpenNebula"
 sleep 5s
 read -p "Fully Qualified Domain Name to set:" f
 read -p "Your network interface name (eg: eth0 or enp3s0 ) :" g
+read -p "Host IP :" x
 #read -p "Root password:" z
 read -p "Cloud admin password :" y
 
 hostnamectl set-hostname $f
-
-IP=`hostname -i`
 yum install epel-release -y
 cat << EOT > /etc/yum.repos.d/opennebula.repo
 [opennebula]
@@ -175,8 +174,8 @@ mkdir -p /var/www/html
 rm -rf /var/www/html
 find / -name nxhtml -exec cp -rv {} /var/www/html \;
 chown -R apache:apache /var/www/html
-sed -i "s/nxonehyper/$IP/g" /var/www/html/index.php
-sed -i "s/nxonehyper/$IP/g" /var/www/html/terminal.php
+sed -i "s/nxonehyper/$x/g" /var/www/html/index.html
+sed -i "s/nxonehyper/$x/g" /var/www/html/terminal.html
 
 
 python /var/GateOne/setup.py install
@@ -218,40 +217,18 @@ systemctl start nfs.service
 #IP=`hostname -i`
 rm -rf /usr/lib/one
 find / -name nxone -exec mv -v {} /usr/lib/one \;
-sed -i "s/terminalgo/$IP/g" /usr/lib/one/sunstone/views/login.erb
-onezone rename 0 NXCLOUD
+#sed -i "s/terminalgo/$x/g" /usr/lib/one/sunstone/views/login.erb
 service opennebula restart
 service opennebula-sunstone restart
+onezone rename 0 NXONE
 
 ##Network Settings
 
 
-touch /etc/sysconfig/network-scripts/ifcfg-br0
+#touch /etc/sysconfig/network-scripts/ifcfg-br0
 cp /etc/sysconfig/network-scripts/ifcfg-$g /etc/sysconfig/network-scripts/ifcfg-$g.bak
 #cat /dev/null > /etc/sysconfig/network-scripts/ifcfg-$g
 clear
-echo "Copy below content to ifcfg-$g"
-
-echo "
-DEVICE=$g
-BOOTPROTO=none
-NM_CONTROLLED=no
-ONBOOT=yes
-TYPE=Ethernet
-BRIDGE=br0
-" 
-
-echo "Copy below content to /etc/sysconfig/network-scripts/ifcfg-br0"
-
-echo "
-DEVICE=br0
-TYPE=Bridge
-ONBOOT=yes
-BOOTPROTO=dhcp
-NM_CONTROLLED=no
-" 
-read -p "Please hit ENTER after finish copy paste. You must need to copy and paste content to the given location."
-
 systemctl restart network.service
 
 ##Adding ssh public key
