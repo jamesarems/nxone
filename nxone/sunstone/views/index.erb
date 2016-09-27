@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NX Cloud Operations Center</title>
+    <title>nxOne Operations Center</title>
 
     <!--[if IE]><link rel="shortcut icon" href="images/favicon.ico"><![endif]-->
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png">
@@ -14,7 +14,7 @@
     <% end %>
 
     <% view = $views_config.view(session[:user], session[:user_gname], session[:default_view]) %>
-    <% halt 500, "NX Cloud is unreachable" if view.nil? %>
+    <% halt 500, "nxOne is unreachable" if view.nil? %>
     <script type="text/javascript">
       var csrftoken = '<%= session[:csrftoken] %>';
       var view = JSON.parse('<%= view.to_json %>')
@@ -72,7 +72,7 @@
           </ul>
         </div>
       <div id="footer" class="text-center large-12 columns">
-        <a href="https://github.com/jamesarems/opennebula-distro" target="_blank">NX Cloud</a>
+        <a href="https://github.com/jamesarems/opennebula-distro" target="_blank">nxOne</a>
         <br> by
         <a href="http://opennebula.org" target="_blank">OpenNebula</a>.
       </div>
