@@ -1,6 +1,8 @@
-# NXONE  V 1.0
+# NXONE  V 2.0
 
 ##New Features
+
+* Update Hypervisor core packages .
 
 * Terminal Web console added .
   
