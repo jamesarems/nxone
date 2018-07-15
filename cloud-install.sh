@@ -153,7 +153,7 @@ yum install epel-release -y
 cat << EOT > /etc/yum.repos.d/opennebula.repo
 [opennebula]
 name=opennebula
-baseurl=http://downloads.opennebula.org/repo/5.2/CentOS/7/x86_64
+baseurl=http://downloads.opennebula.org/repo/5.5/CentOS/7/x86_64
 enabled=1
 gpgcheck=0
 EOT
@@ -241,7 +241,7 @@ cat /dev/null > /etc/motd
 PWD=`cut -c 10-50 /var/lib/one/.one/one_auth`
 
 echo "*****************************************************" >> /etc/motd
-echo "       NXONE 1.0 OS by James PS             " >> /etc/motd
+echo "       NXONE 2.0 OS by James PS             " >> /etc/motd
 echo "        https://github.com/jamesarems            " >> /etc/motd
 echo "                 (c) 2016           " >> /etc/motd
 echo "*****************************************************" >> /etc/motd
@@ -269,13 +269,13 @@ clear
 echo "Configuring OpenVswitch.."
 sleep 3s
 runuser -l ovs -c 'mkdir -p ~/rpmbuild/SOURCES'
-runuser -l ovs -c 'wget http://openvswitch.org/releases/openvswitch-2.4.0.tar.gz -P /home/ovs/'
-runuser -l ovs -c 'cp /home/ovs/openvswitch-2.4.0.tar.gz ~/rpmbuild/SOURCES/'
-runuser -l ovs -c 'tar xfz /home/ovs/openvswitch-2.4.0.tar.gz'
-runuser -l ovs -c `sed 's/openvswitch-kmod, //g' /home/ovs/openvswitch-2.4.0/rhel/openvswitch.spec > /home/ovs/openvswitch-2.4.0/rhel/openvswitch_no_kmod.spec`
-runuser -l ovs -c 'rpmbuild -bb --nocheck /home/ovs/openvswitch-2.4.0/rhel/openvswitch_no_kmod.spec'
+runuser -l ovs -c 'wget http://openvswitch.org/releases/openvswitch-2.9.2.tar.gz -P /home/ovs/'
+runuser -l ovs -c 'cp /home/ovs/openvswitch-2.9.2.tar.gz ~/rpmbuild/SOURCES/'
+runuser -l ovs -c 'tar xfz /home/ovs/openvswitch-2.9.2.tar.gz'
+runuser -l ovs -c `sed 's/openvswitch-kmod, //g' /home/ovs/openvswitch-2.9.2/rhel/openvswitch.spec > /home/ovs/openvswitch-2.9.2/rhel/openvswitch_no_kmod.spec`
+runuser -l ovs -c 'rpmbuild -bb --nocheck /home/ovs/openvswitch-2.9.2/rhel/openvswitch_no_kmod.spec'
 
-yum localinstall /home/ovs/rpmbuild/RPMS/x86_64/openvswitch-2.4.0-1.x86_64.rpm -y
+yum localinstall /home/ovs/rpmbuild/RPMS/x86_64/openvswitch-2.9.2-1.x86_64.rpm -y
 clear
 echo "OpenVswitch Version"
 ovs-vsctl -V
